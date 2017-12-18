@@ -8,25 +8,15 @@
   DTS:Description="SSIS Package Description"
   DTS:DTSID="{6AC1B86B-D9D6-430B-953F-90B76BA5AC5F}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="13.0.2150.2"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
   DTS:LocaleID="1033"
   DTS:MaxErrorCount="0"
   DTS:ObjectName="RL_WM_Replen_Load"
-  DTS:VersionBuild="56"
-  DTS:VersionGUID="{7AB21492-A310-4932-9614-5FC292E17DDF}">
+  DTS:VersionBuild="60"
+  DTS:VersionGUID="{672B33E6-E49E-4128-A6B9-987F455C1882}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DestinationConnectionOLEDB]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{A3CCC8D0-7A7A-467E-A315-7F2AE6D5076E}"
-      DTS:ObjectName="DestinationConnectionOLEDB">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=VINCENT-HP;Initial Catalog=WM_RAW_RL;Provider=SQLNCLI11;Integrated Security=SSPI;Auto Translate=false;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[SourceConnectionOLEDB]"
       DTS:CreationName="OLEDB"
@@ -36,7 +26,7 @@
         DTS:Name="ConnectionString">"Data Source="+ @[User::CurrentAccessFile]+";Provider=Microsoft.Jet.OLEDB.4.0"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=C:\WM\RL_Data\Bruder_Healthcare\tbl_WM_Replen.mdb;Provider=Microsoft.Jet.OLEDB.4.0;" />
+          DTS:ConnectionString="Data Source=C:\WM\RL_Data\Rimports\tbl_WM_Replen.mdb;Provider=Microsoft.Jet.OLEDB.4.0;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -44,11 +34,13 @@
     <DTS:Variable
       DTS:CreationName=""
       DTS:DTSID="{C6FB313F-947F-45FF-8882-7D4717E531C1}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::Working_Folder]+&quot;\\Rimports\\tbl_WM_Replen.mdb&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="CurrentAccessFile">
       <DTS:VariableValue
-        DTS:DataType="8">C:\WM\RL_Data\Bruder_Healthcare\tbl_WM_Replen.mdb</DTS:VariableValue>
+        DTS:DataType="8">C:\WM\RL_Data\Rimports\tbl_WM_Replen.mdb</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -59,7 +51,7 @@
       DTS:Namespace="User"
       DTS:ObjectName="Current_DateTime">
       <DTS:VariableValue
-        DTS:DataType="7">10/27/2016 10:47:20 PM</DTS:VariableValue>
+        DTS:DataType="7">12/17/2017 10:32:14 PM</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -82,11 +74,13 @@
     <DTS:Variable
       DTS:CreationName=""
       DTS:DTSID="{46ABC673-73E3-4FB2-BE40-B27852BA1FCF}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::Raw_Database_Name]+&quot;.dbo.tbl_WM_Replen&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="Table_Name">
       <DTS:VariableValue
-        DTS:DataType="8">WM_RAW_RL.dbo.tbl_WM_Replen</DTS:VariableValue>
+        DTS:DataType="8">WM_RAW_RL_Rimports.dbo.tbl_WM_Replen</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -109,119 +103,56 @@
   </DTS:Variables>
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\End Packge Audit"
-      DTS:CreationName="Microsoft.ExecuteSQLTask"
-      DTS:Description="Execute SQL Task"
-      DTS:DTSID="{6E5885AA-30A2-40C1-AEE9-473967CF1361}"
-      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:refId="Package\Calculate Total Row Imported"
+      DTS:CreationName="Microsoft.ScriptTask"
+      DTS:Description="Script Task"
+      DTS:DTSID="{1c8cc301-1091-4bbe-80a7-d3fe15d87a57}"
+      DTS:ExecutableType="Microsoft.ScriptTask"
       DTS:LocaleID="-1"
-      DTS:ObjectName="End Packge Audit"
-      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ObjectName="Calculate Total Row Imported"
       DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
-        <SQLTask:SqlTaskData
-          SQLTask:Connection="{941E2DE5-C585-438B-B221-6FF1C84ECE6E}"
-          SQLTask:SqlStatementSource="exec [dbo].[sp_audit_pkg_upd] ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
-          <SQLTask:ParameterBinding
-            SQLTask:ParameterName="0"
-            SQLTask:DtsVariableName="User::Package_SK"
-            SQLTask:ParameterDirection="Input"
-            SQLTask:DataType="3"
-            SQLTask:ParameterSize="-1" />
-        </SQLTask:SqlTaskData>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\End Table Audit"
-      DTS:CreationName="Microsoft.ExecuteSQLTask"
-      DTS:Description="Execute SQL Task"
-      DTS:DTSID="{6F1EC4A2-4C80-4ED7-9F3A-B20701E4276E}"
-      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="End Table Audit"
-      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <SQLTask:SqlTaskData
-          SQLTask:Connection="{941E2DE5-C585-438B-B221-6FF1C84ECE6E}"
-          SQLTask:SqlStatementSource="EXEC [dbo].[sp_audit_table_upd] ?,0,?,0,0,0,?,?,'TRUE'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
-          <SQLTask:ParameterBinding
-            SQLTask:ParameterName="0"
-            SQLTask:DtsVariableName="User::Table_SK"
-            SQLTask:ParameterDirection="Input"
-            SQLTask:DataType="3"
-            SQLTask:ParameterSize="-1" />
-          <SQLTask:ParameterBinding
-            SQLTask:ParameterName="1"
-            SQLTask:DtsVariableName="User::Total_Row_Imported"
-            SQLTask:ParameterDirection="Input"
-            SQLTask:DataType="3"
-            SQLTask:ParameterSize="-1" />
-          <SQLTask:ParameterBinding
-            SQLTask:ParameterName="2"
-            SQLTask:DtsVariableName="User::Total_Row_Imported"
-            SQLTask:ParameterDirection="Input"
-            SQLTask:DataType="3"
-            SQLTask:ParameterSize="-1" />
-          <SQLTask:ParameterBinding
-            SQLTask:ParameterName="3"
-            SQLTask:DtsVariableName="User::Current_DateTime"
-            SQLTask:ParameterDirection="Input"
-            SQLTask:DataType="7"
-            SQLTask:ParameterSize="-1" />
-        </SQLTask:SqlTaskData>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\Foreach Loop Container"
-      DTS:CreationName="STOCK:FOREACHLOOP"
-      DTS:Description="Foreach Loop Container"
-      DTS:DTSID="{15B4CCBC-F98C-4B3A-95C4-2B300D19D63D}"
-      DTS:ExecutableType="STOCK:FOREACHLOOP"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="Foreach Loop Container">
-      <DTS:ForEachEnumerator
-        DTS:CreationName="Microsoft.ForEachFileEnumerator"
-        DTS:DTSID="{02C381E3-9A21-43C2-A349-81DFB8A03521}"
-        DTS:ObjectName="{02C381E3-9A21-43C2-A349-81DFB8A03521}">
-        <DTS:ObjectData>
-          <ForEachFileEnumeratorProperties>
-            <FEFEProperty
-              Folder="C:\WM\RL_Data" />
-            <FEFEProperty
-              FileSpec="tbl_WM_Replen.mdb" />
-            <FEFEProperty
-              FileNameRetrievalType="0" />
-            <FEFEProperty
-              Recurse="-1" />
-          </ForEachFileEnumeratorProperties>
-        </DTS:ObjectData>
-      </DTS:ForEachEnumerator>
-      <DTS:Variables />
-      <DTS:Executables>
-        <DTS:Executable
-          DTS:refId="Package\Foreach Loop Container\Calculate Total Row Imported"
-          DTS:CreationName="Microsoft.ScriptTask"
-          DTS:Description="Script Task"
-          DTS:DTSID="{16376F9D-FF6F-45E4-BEFB-2CDF382BC21E}"
-          DTS:ExecutableType="Microsoft.ScriptTask"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="Calculate Total Row Imported"
-          DTS:ThreadHint="0">
-          <DTS:Variables />
-          <DTS:ObjectData>
-            <ScriptProject
-              Name="ST_44cc35e6ecb34ce9b841d16c42eddc7e"
-              VSTAMajorVersion="3"
-              VSTAMinorVersion="0"
-              Language="CSharp"
-              ReadOnlyVariables="User::Row_Count"
-              ReadWriteVariables="User::Total_Row_Imported">
-              <ProjectItem
-                Name="Properties\Resources.resx"
-                Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+        <ScriptProject
+          Name="ST_4c21578fea0447549f1be5a2bf1a59c7"
+          VSTAMajorVersion="3"
+          VSTAMinorVersion="0"
+          Language="CSharp"
+          ReadOnlyVariables="User::Row_Count"
+          ReadWriteVariables="User::Total_Row_Imported">
+          <ProjectItem
+            Name="Properties\AssemblyInfo.cs"
+            Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_e4c3f898bdfb4746a066c1a1052fbd25")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_e4c3f898bdfb4746a066c1a1052fbd25")]
+[assembly: AssemblyCopyright("Copyright @  2016")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+          <ProjectItem
+            Name="Properties\Resources.resx"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -338,38 +269,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 </root>]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Settings.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
-//
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
-
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_e4c3f898bdfb4746a066c1a1052fbd25.Properties.Settings.get_Default():ST_e4c3f898bdfb4746a066c1a1052fbd25.Properties.Sett" +
-    "ings")]
-
-namespace ST_e4c3f898bdfb4746a066c1a1052fbd25.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
-              <ProjectItem
-                Name="ScriptMain.cs"
-                Encoding="UTF8"><![CDATA[#region Help:  Introduction to the script task
+          <ProjectItem
+            Name="ST_4c21578fea0447549f1be5a2bf1a59c7.csproj"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?><Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><PropertyGroup><ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids><Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration><Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform><ProductVersion>8.0.30703</ProductVersion><SchemaVersion>2.0</SchemaVersion><ProjectGuid>{74A5E283-91CB-4D15-821D-BBE13A97DFF4}</ProjectGuid><OutputType>Library</OutputType><AppDesignerFolder>Properties</AppDesignerFolder><RootNamespace>ST_e4c3f898bdfb4746a066c1a1052fbd25</RootNamespace><AssemblyName>ST_4c21578fea0447549f1be5a2bf1a59c7</AssemblyName><TargetFrameworkVersion>v4.0</TargetFrameworkVersion><FileAlignment>512</FileAlignment><ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch></PropertyGroup><PropertyGroup Condition=" '$(Configuration)' == 'Debug' "><DebugSymbols>true</DebugSymbols><DebugType>full</DebugType><Optimize>false</Optimize><OutputPath>.\bin\Debug\</OutputPath><EnableUnmanagedDebugging>false</EnableUnmanagedDebugging><DefineConstants>DEBUG;TRACE</DefineConstants><ErrorReport>prompt</ErrorReport><WarningLevel>4</WarningLevel></PropertyGroup><PropertyGroup Condition=" '$(Configuration)' == 'Release' "><DebugSymbols>false</DebugSymbols><Optimize>true</Optimize><OutputPath>.\bin\Release\</OutputPath><EnableUnmanagedDebugging>false</EnableUnmanagedDebugging><DefineConstants>TRACE</DefineConstants><ErrorReport>prompt</ErrorReport><WarningLevel>4</WarningLevel></PropertyGroup><ItemGroup><Reference Include="System" /><Reference Include="System.Data" /><Reference Include="System.Windows.Forms" /><Reference Include="System.Xml" /><Reference Include="Microsoft.SqlServer.ManagedDTS, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /><Reference Include="Microsoft.SqlServer.ScriptTask, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /></ItemGroup><ItemGroup><AppDesigner Include="Properties\" /><Compile Include="Properties\AssemblyInfo.cs"><SubType>Code</SubType></Compile><EmbeddedResource Include="Properties\Resources.resx"><Generator>ResXFileCodeGenerator</Generator><LastGenOutput>Resources.Designer.cs</LastGenOutput></EmbeddedResource><Compile Include="Properties\Resources.Designer.cs"><AutoGen>True</AutoGen><DependentUpon>Resources.resx</DependentUpon></Compile><None Include="Properties\Settings.settings"><Generator>SettingsSingleFileGenerator</Generator><LastGenOutput>Settings.Designer.cs</LastGenOutput></None><Compile Include="Properties\Settings.Designer.cs"><AutoGen>True</AutoGen><DependentUpon>Settings.settings</DependentUpon></Compile><Compile Include="ScriptMain.cs"><SubType>Code</SubType></Compile></ItemGroup><!-- Include the build rules for a C# project.--><Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" /><ProjectExtensions><VisualStudio><FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}"><ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" DebugInfoExeName="" /><Host Name="ScriptTask" /><ProjectClient><HostIdentifier>SSIS_ST120</HostIdentifier></ProjectClient></FlavorProperties></VisualStudio></ProjectExtensions></Project>]]></ProjectItem>
+          <ProjectItem
+            Name="ScriptMain.cs"
+            Encoding="UTF8"><![CDATA[#region Help:  Introduction to the script task
 /* The Script Task allows you to perform virtually any operation that can be accomplished in
  * a .Net application within the context of an Integration Services control flow. 
  * 
@@ -484,9 +389,9 @@ namespace ST_e4c3f898bdfb4746a066c1a1052fbd25
 
 	}
 }]]></ProjectItem>
-              <ProjectItem
-                Name="Project"
-                Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+          <ProjectItem
+            Name="Project"
+            Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
 <c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
 	<msb:PropertyGroup>
 		<msb:CodeName>ST_e4c3f898bdfb4746a066c1a1052fbd25</msb:CodeName>
@@ -495,7 +400,7 @@ namespace ST_e4c3f898bdfb4746a066c1a1052fbd25
 		<msb:ProjectId>{EE1FBAF0-4BC3-400A-80E8-DB5A937FDEB1}</msb:ProjectId>
 	</msb:PropertyGroup>
 	<msb:ItemGroup>
-		<msb:Project Include="ST_44cc35e6ecb34ce9b841d16c42eddc7e.csproj"/>
+		<msb:Project Include="ST_4c21578fea0447549f1be5a2bf1a59c7.csproj"/>
 		<msb:File Include="Properties\AssemblyInfo.cs"/>
 		<msb:File Include="Properties\Settings.settings"/>
 		<msb:File Include="Properties\Resources.resx"/>
@@ -504,133 +409,47 @@ namespace ST_e4c3f898bdfb4746a066c1a1052fbd25
 		<msb:File Include="ScriptMain.cs"/>
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
-              <ProjectItem
-                Name="ST_44cc35e6ecb34ce9b841d16c42eddc7e.csproj"
-                Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{74A5E283-91CB-4D15-821D-BBE13A97DFF4}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ST_e4c3f898bdfb4746a066c1a1052fbd25</RootNamespace>
-    <AssemblyName>ST_44cc35e6ecb34ce9b841d16c42eddc7e</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>.\bin\Debug\</OutputPath>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DebugSymbols>false</DebugSymbols>
-    <Optimize>true</Optimize>
-    <OutputPath>.\bin\Release\</OutputPath>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.SqlServer.ManagedDTS, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.SqlServer.ScriptTask, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-  </ItemGroup>
-  <ItemGroup>
-    <AppDesigner Include="Properties\" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="ScriptMain.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <!-- Include the build rules for a C# project.-->
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
-        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" DebugInfoExeName="" />
-        <Host Name="ScriptTask" />
-        <ProjectClient>
-          <HostIdentifier>SSIS_ST120</HostIdentifier>
-        </ProjectClient>
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>
-</Project>]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\AssemblyInfo.cs"
-                Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
+          <ProjectItem
+            Name="Properties\Settings.Designer.cs"
+            Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
 
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_e4c3f898bdfb4746a066c1a1052fbd25")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_e4c3f898bdfb4746a066c1a1052fbd25")]
-[assembly: AssemblyCopyright("Copyright @  2016")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_e4c3f898bdfb4746a066c1a1052fbd25.Properties.Settings.get_Default():ST_e4c3f898bdfb4746a066c1a1052fbd25.Properties.Sett" +
+    "ings")]
 
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+namespace ST_e4c3f898bdfb4746a066c1a1052fbd25.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
+          <ProjectItem
+            Name="Properties\Settings.settings"
+            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
 <SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
   <Profiles>
     <Profile Name="(Default)" />
   </Profiles>
   <Settings />
 </SettingsFile>]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Resources.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+          <ProjectItem
+            Name="Properties\Resources.Designer.cs"
+            Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
 // <auto-generated>
 //     This code was generated by a tool.
 //
@@ -696,8 +515,8 @@ namespace ST_e4c3f898bdfb4746a066c1a1052fbd25.Properties {
         }
     }
 }]]></ProjectItem>
-              <BinaryItem
-                Name="ST_44cc35e6ecb34ce9b841d16c42eddc7e.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+          <BinaryItem
+            Name="ST_44cc35e6ecb34ce9b841d16c42eddc7e.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
 ZGUuDQ0KJAAAAAAAAABQRQAATAEDAGyOy1cAAAAAAAAAAOAAAiELAQsAABAAAAAIAAAAAAAAji4A
 AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAEAAAAAAAAAACAAAAAAgAAAAAAAAMAQIUAABAA
@@ -814,786 +633,834 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
-            </ScriptProject>
-          </DTS:ObjectData>
-        </DTS:Executable>
-        <DTS:Executable
-          DTS:refId="Package\Foreach Loop Container\Data Flow Task"
-          DTS:CreationName="Microsoft.Pipeline"
-          DTS:DelayValidation="True"
-          DTS:DTSID="{5F04A640-93C2-45E7-B905-FD4B2EED022C}"
-          DTS:ExecutableType="Microsoft.Pipeline"
-          DTS:FailPackageOnFailure="True"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="Data Flow Task"
-          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-          <DTS:Variables />
-          <DTS:ObjectData>
-            <pipeline
-              defaultBufferSize="3145728"
-              version="1">
-              <components>
-                <component
-                  refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0"
-                  componentClassID="Microsoft.DataConvert"
-                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
-                  description="Data Conversion"
-                  name="Data Conversion 0 - 0"
-                  usesDispositions="true">
-                  <inputs>
-                    <input
-                      refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input]"
-                      name="Data Conversion Input">
-                      <inputColumns>
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input].Columns[Item Nbr]"
-                          cachedDataType="r8"
-                          cachedName="Item Nbr"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Item Nbr]" />
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input].Columns[Store Nbr]"
-                          cachedDataType="r8"
-                          cachedName="Store Nbr"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Store Nbr]" />
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input].Columns[Curr Traited Store/Item Comb ]"
-                          cachedDataType="r8"
-                          cachedName="Curr Traited Store/Item Comb "
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Traited Store/Item Comb ]" />
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input].Columns[Curr Valid Store/Item Comb ]"
-                          cachedDataType="r8"
-                          cachedName="Curr Valid Store/Item Comb "
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Valid Store/Item Comb ]" />
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input].Columns[DD]"
-                          cachedDataType="r8"
-                          cachedName="DD"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[DD]" />
-                      </inputColumns>
-                      <externalMetadataColumns />
-                    </input>
-                  </inputs>
-                  <outputs>
-                    <output
-                      refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output]"
-                      exclusionGroup="1"
-                      name="Data Conversion Output"
-                      synchronousInputId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input]">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Item Nbr]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="IgnoreFailure"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Item Nbr]"
-                          name="Item Nbr"
-                          truncationRowDisposition="IgnoreFailure">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Specifies the input column used as the source of data for the conversion."
-                              name="SourceInputColumnLineageID">#{Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Item Nbr]}</property>
-                            <property
-                              dataType="System.Boolean"
-                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
-                              name="FastParse">false</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Store Nbr]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="IgnoreFailure"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Store Nbr]"
-                          name="Store Nbr"
-                          truncationRowDisposition="IgnoreFailure">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Specifies the input column used as the source of data for the conversion."
-                              name="SourceInputColumnLineageID">#{Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Store Nbr]}</property>
-                            <property
-                              dataType="System.Boolean"
-                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
-                              name="FastParse">false</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Curr Traited Store/Item Comb]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="IgnoreFailure"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Curr Traited Store/Item Comb]"
-                          name="Curr Traited Store/Item Comb"
-                          truncationRowDisposition="IgnoreFailure">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Specifies the input column used as the source of data for the conversion."
-                              name="SourceInputColumnLineageID">#{Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Traited Store/Item Comb ]}</property>
-                            <property
-                              dataType="System.Boolean"
-                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
-                              name="FastParse">false</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Curr Valid Store/Item Comb]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="IgnoreFailure"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Curr Valid Store/Item Comb]"
-                          name="Curr Valid Store/Item Comb"
-                          truncationRowDisposition="IgnoreFailure">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Specifies the input column used as the source of data for the conversion."
-                              name="SourceInputColumnLineageID">#{Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Valid Store/Item Comb ]}</property>
-                            <property
-                              dataType="System.Boolean"
-                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
-                              name="FastParse">false</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[DD]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="IgnoreFailure"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[DD]"
-                          name="DD"
-                          truncationRowDisposition="IgnoreFailure">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Specifies the input column used as the source of data for the conversion."
-                              name="SourceInputColumnLineageID">#{Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[DD]}</property>
-                            <property
-                              dataType="System.Boolean"
-                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
-                              name="FastParse">false</property>
-                          </properties>
-                        </outputColumn>
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                    <output
-                      refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Error Output]"
-                      exclusionGroup="1"
-                      isErrorOut="true"
-                      name="Data Conversion Error Output"
-                      synchronousInputId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input]">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
-                          dataType="i4"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
-                          name="ErrorCode"
-                          specialFlags="1" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
-                          dataType="i4"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
-                          name="ErrorColumn"
-                          specialFlags="2" />
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-                <component
-                  refId="Package\Foreach Loop Container\Data Flow Task\Derived Column"
-                  componentClassID="Microsoft.DerivedColumn"
-                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
-                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
-                  name="Derived Column"
-                  usesDispositions="true">
-                  <inputs>
-                    <input
-                      refId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Inputs[Derived Column Input]"
-                      description="Input to the Derived Column Transformation"
-                      name="Derived Column Input">
-                      <externalMetadataColumns />
-                    </input>
-                  </inputs>
-                  <outputs>
-                    <output
-                      refId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Outputs[Derived Column Output]"
-                      description="Default Output of the Derived Column Transformation"
-                      exclusionGroup="1"
-                      name="Derived Column Output"
-                      synchronousInputId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Inputs[Derived Column Input]">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Outputs[Derived Column Output].Columns[Run_Date]"
-                          dataType="dbDate"
-                          errorOrTruncationOperation="Computation"
-                          errorRowDisposition="FailComponent"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Outputs[Derived Column Output].Columns[Run_Date]"
-                          name="Run_Date"
-                          truncationRowDisposition="FailComponent">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.String"
-                              description="Derived Column Expression"
-                              name="Expression">(DT_DBDATE)[GETDATE]()</property>
-                            <property
-                              containsID="true"
-                              dataType="System.String"
-                              description="Derived Column Friendly Expression"
-                              expressionType="Notify"
-                              name="FriendlyExpression">(DT_DBDATE)GETDATE()</property>
-                          </properties>
-                        </outputColumn>
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                    <output
-                      refId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Outputs[Derived Column Error Output]"
-                      description="Error Output of the Derived Column Transformation"
-                      exclusionGroup="1"
-                      isErrorOut="true"
-                      name="Derived Column Error Output"
-                      synchronousInputId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Inputs[Derived Column Input]">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
-                          dataType="i4"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
-                          name="ErrorCode"
-                          specialFlags="1" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
-                          dataType="i4"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
-                          name="ErrorColumn"
-                          specialFlags="2" />
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-                <component
-                  refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen"
-                  componentClassID="Microsoft.OLEDBDestination"
-                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
-                  description="OLE DB Destination"
-                  name="Destination - tbl_wm_replen"
-                  usesDispositions="true"
-                  validateExternalMetadata="False"
-                  version="4">
-                  <properties>
-                    <property
-                      dataType="System.Int32"
-                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                      name="CommandTimeout">0</property>
-                    <property
-                      dataType="System.String"
-                      description="Specifies the name of the database object used to open a rowset."
-                      name="OpenRowset">[dbo].[tbl_wm_replen]</property>
-                    <property
-                      dataType="System.String"
-                      description="Specifies the variable that contains the name of the database object used to open a rowset."
-                      name="OpenRowsetVariable"></property>
-                    <property
-                      dataType="System.String"
-                      description="The SQL command to be executed."
-                      name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the column code page to use when code page information is unavailable from the data source."
-                      name="DefaultCodePage">1252</property>
-                    <property
-                      dataType="System.Boolean"
-                      description="Forces the use of the DefaultCodePage property value when describing character data."
-                      name="AlwaysUseDefaultCodePage">false</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the mode used to access the database."
-                      name="AccessMode"
-                      typeConverter="AccessMode">3</property>
-                    <property
-                      dataType="System.Boolean"
-                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
-                      name="FastLoadKeepIdentity">false</property>
-                    <property
-                      dataType="System.Boolean"
-                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
-                      name="FastLoadKeepNulls">false</property>
-                    <property
-                      dataType="System.String"
-                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
-                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
-                      name="FastLoadMaxInsertCommitSize">2147483647</property>
-                  </properties>
-                  <connections>
-                    <connection
-                      refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[DestinationConnectionOLEDB]"
-                      connectionManagerRefId="Package.ConnectionManagers[DestinationConnectionOLEDB]"
-                      description="The OLE DB runtime connection used to access the database."
-                      name="OleDbConnection" />
-                  </connections>
-                  <inputs>
-                    <input
-                      refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input]"
-                      errorOrTruncationOperation="Insert"
-                      errorRowDisposition="FailComponent"
-                      hasSideEffects="true"
-                      name="Destination Input">
-                      <inputColumns>
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[Item Nbr]"
-                          cachedDataType="i4"
-                          cachedName="Item Nbr"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Item Nbr]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Item Nbr]" />
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[Store Nbr]"
-                          cachedDataType="i4"
-                          cachedName="Store Nbr"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Store Nbr]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Store Nbr]" />
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[FT]"
-                          cachedDataType="wstr"
-                          cachedLength="255"
-                          cachedName="FT"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[FT]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[FT]" />
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[Curr Traited Store/Item Comb]"
-                          cachedDataType="i4"
-                          cachedName="Curr Traited Store/Item Comb"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Curr Traited Store/Item Comb ]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Curr Traited Store/Item Comb]" />
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[Curr Valid Store/Item Comb]"
-                          cachedDataType="i4"
-                          cachedName="Curr Valid Store/Item Comb"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Curr Valid Store/Item Comb ]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Curr Valid Store/Item Comb]" />
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[DD]"
-                          cachedDataType="i4"
-                          cachedName="DD"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[DD]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[DD]" />
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[Repl Channel]"
-                          cachedDataType="wstr"
-                          cachedLength="255"
-                          cachedName="Repl Channel"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Repl Channel]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Repl Channel]" />
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[Run_Date]"
-                          cachedDataType="dbDate"
-                          cachedName="Run_Date"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Run_Date]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Outputs[Derived Column Output].Columns[Run_Date]" />
-                      </inputColumns>
-                      <externalMetadataColumns
-                        isUsed="True">
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Item Nbr]"
-                          dataType="i4"
-                          name="Item Nbr" />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Store Nbr]"
-                          dataType="i4"
-                          name="Store Nbr" />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[FT]"
-                          dataType="wstr"
-                          length="10"
-                          name="FT" />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Curr Traited Store/Item Comb ]"
-                          dataType="i4"
-                          name="Curr Traited Store/Item Comb " />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Curr Valid Store/Item Comb ]"
-                          dataType="i4"
-                          name="Curr Valid Store/Item Comb " />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[DD]"
-                          dataType="i4"
-                          name="DD" />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Repl Channel]"
-                          dataType="wstr"
-                          length="20"
-                          name="Repl Channel" />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Run_Date]"
-                          dataType="dbDate"
-                          name="Run_Date" />
-                      </externalMetadataColumns>
-                    </input>
-                  </inputs>
-                  <outputs>
-                    <output
-                      refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Outputs[OLE DB Destination Error Output]"
-                      exclusionGroup="1"
-                      isErrorOut="true"
-                      name="OLE DB Destination Error Output"
-                      synchronousInputId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input]">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
-                          dataType="i4"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
-                          name="ErrorCode"
-                          specialFlags="1" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
-                          dataType="i4"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
-                          name="ErrorColumn"
-                          specialFlags="2" />
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-                <component
-                  refId="Package\Foreach Loop Container\Data Flow Task\Row Count"
-                  componentClassID="Microsoft.RowCount"
-                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
-                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
-                  name="Row Count">
-                  <properties>
-                    <property
-                      dataType="System.String"
-                      description="Specifies the variable to hold the row count."
-                      name="VariableName">User::Row_Count</property>
-                  </properties>
-                  <inputs>
-                    <input
-                      refId="Package\Foreach Loop Container\Data Flow Task\Row Count.Inputs[Row Count Input 1]"
-                      hasSideEffects="true"
-                      name="Row Count Input 1">
-                      <externalMetadataColumns />
-                    </input>
-                  </inputs>
-                  <outputs>
-                    <output
-                      refId="Package\Foreach Loop Container\Data Flow Task\Row Count.Outputs[Row Count Output 1]"
-                      name="Row Count Output 1"
-                      synchronousInputId="Package\Foreach Loop Container\Data Flow Task\Row Count.Inputs[Row Count Input 1]">
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-                <component
-                  refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen"
-                  componentClassID="Microsoft.OLEDBSource"
-                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
-                  description="OLE DB Source"
-                  name="Source - tbl_wm_replen"
-                  usesDispositions="true"
-                  version="7">
-                  <properties>
-                    <property
-                      dataType="System.Int32"
-                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                      name="CommandTimeout">0</property>
-                    <property
-                      dataType="System.String"
-                      description="Specifies the name of the database object used to open a rowset."
-                      name="OpenRowset">tbl_wm_replen</property>
-                    <property
-                      dataType="System.String"
-                      description="Specifies the variable that contains the name of the database object used to open a rowset."
-                      name="OpenRowsetVariable"></property>
-                    <property
-                      dataType="System.String"
-                      description="The SQL command to be executed."
-                      name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
-                    <property
-                      dataType="System.String"
-                      description="The variable that contains the SQL command to be executed."
-                      name="SqlCommandVariable"></property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the column code page to use when code page information is unavailable from the data source."
-                      name="DefaultCodePage">1252</property>
-                    <property
-                      dataType="System.Boolean"
-                      description="Forces the use of the DefaultCodePage property value when describing character data."
-                      name="AlwaysUseDefaultCodePage">false</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the mode used to access the database."
-                      name="AccessMode"
-                      typeConverter="AccessMode">0</property>
-                    <property
-                      dataType="System.String"
-                      description="The mappings between the parameters in the SQL command and variables."
-                      name="ParameterMapping"></property>
-                  </properties>
-                  <connections>
-                    <connection
-                      refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[SourceConnectionOLEDB]"
-                      connectionManagerRefId="Package.ConnectionManagers[SourceConnectionOLEDB]"
-                      description="The OLE DB runtime connection used to access the database."
-                      name="OleDbConnection" />
-                  </connections>
-                  <outputs>
-                    <output
-                      refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output]"
-                      name="OLE DB Source Output">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Item Nbr]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Item Nbr]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Item Nbr]"
-                          name="Item Nbr"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Store Nbr]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Store Nbr]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Store Nbr]"
-                          name="Store Nbr"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[FT]"
-                          dataType="wstr"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[FT]"
-                          length="255"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[FT]"
-                          name="FT"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Traited Store/Item Comb ]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Curr Traited Store/Item Comb ]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Traited Store/Item Comb ]"
-                          name="Curr Traited Store/Item Comb "
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Valid Store/Item Comb ]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Curr Valid Store/Item Comb ]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Valid Store/Item Comb ]"
-                          name="Curr Valid Store/Item Comb "
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[DD]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[DD]"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[DD]"
-                          name="DD"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Repl Channel]"
-                          dataType="wstr"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Repl Channel]"
-                          length="255"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Repl Channel]"
-                          name="Repl Channel"
-                          truncationRowDisposition="FailComponent" />
-                      </outputColumns>
-                      <externalMetadataColumns
-                        isUsed="True">
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Item Nbr]"
-                          dataType="r8"
-                          name="Item Nbr" />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Store Nbr]"
-                          dataType="r8"
-                          name="Store Nbr" />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[FT]"
-                          dataType="wstr"
-                          length="255"
-                          name="FT" />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Curr Traited Store/Item Comb ]"
-                          dataType="r8"
-                          name="Curr Traited Store/Item Comb " />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Curr Valid Store/Item Comb ]"
-                          dataType="r8"
-                          name="Curr Valid Store/Item Comb " />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[DD]"
-                          dataType="r8"
-                          name="DD" />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Repl Channel]"
-                          dataType="wstr"
-                          length="255"
-                          name="Repl Channel" />
-                      </externalMetadataColumns>
-                    </output>
-                    <output
-                      refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output]"
-                      isErrorOut="true"
-                      name="OLE DB Source Error Output">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                          dataType="i4"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                          name="ErrorCode"
-                          specialFlags="1" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Item Nbr]"
-                          dataType="r8"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Item Nbr]"
-                          name="Item Nbr" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Store Nbr]"
-                          dataType="r8"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Store Nbr]"
-                          name="Store Nbr" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[FT]"
-                          dataType="wstr"
-                          length="255"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[FT]"
-                          name="FT" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Curr Traited Store/Item Comb ]"
-                          dataType="r8"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Curr Traited Store/Item Comb ]"
-                          name="Curr Traited Store/Item Comb " />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Curr Valid Store/Item Comb ]"
-                          dataType="r8"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Curr Valid Store/Item Comb ]"
-                          name="Curr Valid Store/Item Comb " />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[DD]"
-                          dataType="r8"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[DD]"
-                          name="DD" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Repl Channel]"
-                          dataType="wstr"
-                          length="255"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Repl Channel]"
-                          name="Repl Channel" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                          dataType="i4"
-                          lineageId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                          name="ErrorColumn"
-                          specialFlags="2" />
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-              </components>
-              <paths>
-                <path
-                  refId="Package\Foreach Loop Container\Data Flow Task.Paths[Data Conversion Output]"
-                  endId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Inputs[Derived Column Input]"
+        </ScriptProject>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{a0e0f322-b22d-4889-8ff4-5bc6521e4928}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          defaultBufferSize="3145728"
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task\Data Conversion 0 - 0"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion 0 - 0"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input].Columns[Item Nbr]"
+                      cachedDataType="r8"
+                      cachedName="Item Nbr"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Item Nbr]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input].Columns[Store Nbr]"
+                      cachedDataType="r8"
+                      cachedName="Store Nbr"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Store Nbr]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input].Columns[Curr Traited Store/Item Comb ]"
+                      cachedDataType="r8"
+                      cachedName="Curr Traited Store/Item Comb "
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Traited Store/Item Comb ]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input].Columns[Curr Valid Store/Item Comb ]"
+                      cachedDataType="r8"
+                      cachedName="Curr Valid Store/Item Comb "
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Valid Store/Item Comb ]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input].Columns[DD]"
+                      cachedDataType="r8"
+                      cachedName="DD"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[DD]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
                   name="Data Conversion Output"
-                  startId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output]" />
-                <path
-                  refId="Package\Foreach Loop Container\Data Flow Task.Paths[Derived Column Output]"
-                  endId="Package\Foreach Loop Container\Data Flow Task\Row Count.Inputs[Row Count Input 1]"
+                  synchronousInputId="Package\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Item Nbr]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      lineageId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Item Nbr]"
+                      name="Item Nbr"
+                      truncationRowDisposition="IgnoreFailure">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Item Nbr]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Store Nbr]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      lineageId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Store Nbr]"
+                      name="Store Nbr"
+                      truncationRowDisposition="IgnoreFailure">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Store Nbr]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Curr Traited Store/Item Comb]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      lineageId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Curr Traited Store/Item Comb]"
+                      name="Curr Traited Store/Item Comb"
+                      truncationRowDisposition="IgnoreFailure">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Traited Store/Item Comb ]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Curr Valid Store/Item Comb]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      lineageId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Curr Valid Store/Item Comb]"
+                      name="Curr Valid Store/Item Comb"
+                      truncationRowDisposition="IgnoreFailure">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Valid Store/Item Comb ]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[DD]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      lineageId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[DD]"
+                      name="DD"
+                      truncationRowDisposition="IgnoreFailure">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[DD]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
                   name="Derived Column Output"
-                  startId="Package\Foreach Loop Container\Data Flow Task\Derived Column.Outputs[Derived Column Output]" />
-                <path
-                  refId="Package\Foreach Loop Container\Data Flow Task.Paths[OLE DB Source Output]"
-                  endId="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input]"
-                  name="OLE DB Source Output"
-                  startId="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output]" />
-                <path
-                  refId="Package\Foreach Loop Container\Data Flow Task.Paths[Row Count Output 1]"
-                  endId="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input]"
+                  synchronousInputId="Package\Data Flow Task\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Derived Column.Outputs[Derived Column Output].Columns[Run_Date]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task\Derived Column.Outputs[Derived Column Output].Columns[Run_Date]"
+                      name="Run_Date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DBDATE)[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DBDATE)GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Data Flow Task\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Destination - tbl_wm_replen"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Destination - tbl_wm_replen"
+              usesDispositions="true"
+              validateExternalMetadata="False"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[tbl_WM_Replen]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Destination - tbl_wm_replen.Connections[OleDbConnection]"
+                  connectionManagerID="{A7CBB7BA-1386-4FA1-8152-ECF217025472}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WM_RAW_RL]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[Item Nbr]"
+                      cachedDataType="i4"
+                      cachedName="Item Nbr"
+                      externalMetadataColumnId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Item Nbr]"
+                      lineageId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Item Nbr]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[Store Nbr]"
+                      cachedDataType="i4"
+                      cachedName="Store Nbr"
+                      externalMetadataColumnId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Store Nbr]"
+                      lineageId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Store Nbr]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[FT]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="FT"
+                      externalMetadataColumnId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[FT]"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[FT]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[Curr Traited Store/Item Comb]"
+                      cachedDataType="i4"
+                      cachedName="Curr Traited Store/Item Comb"
+                      externalMetadataColumnId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Curr Traited Store/Item Comb ]"
+                      lineageId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Curr Traited Store/Item Comb]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[Curr Valid Store/Item Comb]"
+                      cachedDataType="i4"
+                      cachedName="Curr Valid Store/Item Comb"
+                      externalMetadataColumnId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Curr Valid Store/Item Comb ]"
+                      lineageId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Curr Valid Store/Item Comb]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[DD]"
+                      cachedDataType="i4"
+                      cachedName="DD"
+                      externalMetadataColumnId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[DD]"
+                      lineageId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[DD]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[Repl Channel]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Repl Channel"
+                      externalMetadataColumnId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Repl Channel]"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Repl Channel]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].Columns[Run_Date]"
+                      cachedDataType="dbDate"
+                      cachedName="Run_Date"
+                      externalMetadataColumnId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Run_Date]"
+                      lineageId="Package\Data Flow Task\Derived Column.Outputs[Derived Column Output].Columns[Run_Date]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Item Nbr]"
+                      dataType="i4"
+                      name="Item Nbr" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Store Nbr]"
+                      dataType="i4"
+                      name="Store Nbr" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[FT]"
+                      dataType="wstr"
+                      length="10"
+                      name="FT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Curr Traited Store/Item Comb ]"
+                      dataType="i4"
+                      name="Curr Traited Store/Item Comb " />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Curr Valid Store/Item Comb ]"
+                      dataType="i4"
+                      name="Curr Valid Store/Item Comb " />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[DD]"
+                      dataType="r8"
+                      name="DD" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Repl Channel]"
+                      dataType="wstr"
+                      length="20"
+                      name="Repl Channel" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input].ExternalColumns[Run_Date]"
+                      dataType="dbDate"
+                      name="Run_Date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Destination - tbl_wm_replen.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Destination - tbl_wm_replen.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Destination - tbl_wm_replen.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Destination - tbl_wm_replen.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Row Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="Row Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::Row_Count</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Row Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Row Count.Outputs[Row Count Output 1]"
                   name="Row Count Output 1"
-                  startId="Package\Foreach Loop Container\Data Flow Task\Row Count.Outputs[Row Count Output 1]" />
-              </paths>
-            </pipeline>
-          </DTS:ObjectData>
-        </DTS:Executable>
-        <DTS:Executable
-          DTS:refId="Package\Foreach Loop Container\Script Task"
-          DTS:CreationName="Microsoft.ScriptTask"
-          DTS:Description="Script Task"
-          DTS:DTSID="{8F94AE3C-AB6C-4B2B-8EE2-837C4A46BDD3}"
-          DTS:ExecutableType="Microsoft.ScriptTask"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="Script Task"
-          DTS:ThreadHint="0">
-          <DTS:Variables />
-          <DTS:ObjectData>
-            <ScriptProject
-              Name="ST_e4c3f898bdfb4746a066c1a1052fbd25"
-              VSTAMajorVersion="3"
-              VSTAMinorVersion="0"
-              Language="CSharp"
-              ReadOnlyVariables="User::CurrentAccessFile">
-              <ProjectItem
-                Name="Properties\AssemblyInfo.cs"
-                Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_e4c3f898bdfb4746a066c1a1052fbd25")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_e4c3f898bdfb4746a066c1a1052fbd25")]
-[assembly: AssemblyCopyright("Copyright @  2016")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Resources.resx"
-                Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+                  synchronousInputId="Package\Data Flow Task\Row Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Source - tbl_wm_replen"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Source - tbl_wm_replen"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">tbl_wm_replen</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Source - tbl_wm_replen.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Item Nbr]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Item Nbr]"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Item Nbr]"
+                      name="Item Nbr"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Store Nbr]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Store Nbr]"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Store Nbr]"
+                      name="Store Nbr"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[FT]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[FT]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[FT]"
+                      name="FT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Traited Store/Item Comb ]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Curr Traited Store/Item Comb ]"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Traited Store/Item Comb ]"
+                      name="Curr Traited Store/Item Comb "
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Valid Store/Item Comb ]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Curr Valid Store/Item Comb ]"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Curr Valid Store/Item Comb ]"
+                      name="Curr Valid Store/Item Comb "
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[DD]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[DD]"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[DD]"
+                      name="DD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Repl Channel]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Repl Channel]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].Columns[Repl Channel]"
+                      name="Repl Channel"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Item Nbr]"
+                      dataType="r8"
+                      name="Item Nbr" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Store Nbr]"
+                      dataType="r8"
+                      name="Store Nbr" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[FT]"
+                      dataType="wstr"
+                      length="255"
+                      name="FT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Curr Traited Store/Item Comb ]"
+                      dataType="r8"
+                      name="Curr Traited Store/Item Comb " />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Curr Valid Store/Item Comb ]"
+                      dataType="r8"
+                      name="Curr Valid Store/Item Comb " />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[DD]"
+                      dataType="r8"
+                      name="DD" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output].ExternalColumns[Repl Channel]"
+                      dataType="wstr"
+                      length="255"
+                      name="Repl Channel" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Item Nbr]"
+                      dataType="r8"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Item Nbr]"
+                      name="Item Nbr" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Store Nbr]"
+                      dataType="r8"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Store Nbr]"
+                      name="Store Nbr" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[FT]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[FT]"
+                      name="FT" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Curr Traited Store/Item Comb ]"
+                      dataType="r8"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Curr Traited Store/Item Comb ]"
+                      name="Curr Traited Store/Item Comb " />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Curr Valid Store/Item Comb ]"
+                      dataType="r8"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Curr Valid Store/Item Comb ]"
+                      name="Curr Valid Store/Item Comb " />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[DD]"
+                      dataType="r8"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[DD]"
+                      name="DD" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Repl Channel]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[Repl Channel]"
+                      name="Repl Channel" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task.Paths[Data Conversion Output]"
+              endId="Package\Data Flow Task\Derived Column.Inputs[Derived Column Input]"
+              name="Data Conversion Output"
+              startId="Package\Data Flow Task\Data Conversion 0 - 0.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Derived Column Output]"
+              endId="Package\Data Flow Task\Row Count.Inputs[Row Count Input 1]"
+              name="Derived Column Output"
+              startId="Package\Data Flow Task\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[OLE DB Source Output]"
+              endId="Package\Data Flow Task\Data Conversion 0 - 0.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\Data Flow Task\Source - tbl_wm_replen.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Row Count Output 1]"
+              endId="Package\Data Flow Task\Destination - tbl_wm_replen.Inputs[Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\Data Flow Task\Row Count.Outputs[Row Count Output 1]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\End Packge Audit"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6E5885AA-30A2-40C1-AEE9-473967CF1361}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="End Packge Audit"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{941E2DE5-C585-438B-B221-6FF1C84ECE6E}"
+          SQLTask:SqlStatementSource="exec [dbo].[sp_audit_pkg_upd] ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::Package_SK"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\End Table Audit"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6F1EC4A2-4C80-4ED7-9F3A-B20701E4276E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="End Table Audit"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{941E2DE5-C585-438B-B221-6FF1C84ECE6E}"
+          SQLTask:SqlStatementSource="EXEC [dbo].[sp_audit_table_upd] ?,0,?,0,0,0,?,?,'TRUE'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::Table_SK"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::Total_Row_Imported"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::Total_Row_Imported"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::Current_DateTime"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="7"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Script Task"
+      DTS:CreationName="Microsoft.ScriptTask"
+      DTS:Description="Script Task"
+      DTS:DTSID="{fcb8013b-4c53-449f-b535-4ba20bb85806}"
+      DTS:ExecutableType="Microsoft.ScriptTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Script Task"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ScriptProject
+          Name="ST_54fc5918619e4f07a62674b5b48a8270"
+          VSTAMajorVersion="3"
+          VSTAMinorVersion="0"
+          Language="CSharp"
+          ReadOnlyVariables="User::CurrentAccessFile">
+          <ProjectItem
+            Name="Properties\Settings.settings"
+            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
+          <ProjectItem
+            Name="ST_54fc5918619e4f07a62674b5b48a8270.csproj"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?><Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><PropertyGroup><ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids><Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration><Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform><ProductVersion>8.0.30703</ProductVersion><SchemaVersion>2.0</SchemaVersion><ProjectGuid>{74a5e283-91cb-4d15-821d-bbe13a97dff4}</ProjectGuid><OutputType>Library</OutputType><AppDesignerFolder>Properties</AppDesignerFolder><RootNamespace>ST_e4c3f898bdfb4746a066c1a1052fbd25</RootNamespace><AssemblyName>ST_54fc5918619e4f07a62674b5b48a8270</AssemblyName><TargetFrameworkVersion>v4.0</TargetFrameworkVersion><FileAlignment>512</FileAlignment><ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch></PropertyGroup><PropertyGroup Condition=" '$(Configuration)' == 'Debug' "><DebugSymbols>true</DebugSymbols><DebugType>full</DebugType><Optimize>false</Optimize><OutputPath>.\bin\Debug\</OutputPath><EnableUnmanagedDebugging>false</EnableUnmanagedDebugging><DefineConstants>DEBUG;TRACE</DefineConstants><ErrorReport>prompt</ErrorReport><WarningLevel>4</WarningLevel></PropertyGroup><PropertyGroup Condition=" '$(Configuration)' == 'Release' "><DebugSymbols>false</DebugSymbols><Optimize>true</Optimize><OutputPath>.\bin\Release\</OutputPath><EnableUnmanagedDebugging>false</EnableUnmanagedDebugging><DefineConstants>TRACE</DefineConstants><ErrorReport>prompt</ErrorReport><WarningLevel>4</WarningLevel></PropertyGroup><ItemGroup><Reference Include="System" /><Reference Include="System.Data" /><Reference Include="System.Windows.Forms" /><Reference Include="System.Xml" /><Reference Include="Microsoft.SqlServer.ManagedDTS, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /><Reference Include="Microsoft.SqlServer.ScriptTask, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /></ItemGroup><ItemGroup><AppDesigner Include="Properties\" /><Compile Include="Properties\AssemblyInfo.cs"><SubType>Code</SubType></Compile><EmbeddedResource Include="Properties\Resources.resx"><Generator>ResXFileCodeGenerator</Generator><LastGenOutput>Resources.Designer.cs</LastGenOutput></EmbeddedResource><Compile Include="Properties\Resources.Designer.cs"><AutoGen>True</AutoGen><DependentUpon>Resources.resx</DependentUpon></Compile><None Include="Properties\Settings.settings"><Generator>SettingsSingleFileGenerator</Generator><LastGenOutput>Settings.Designer.cs</LastGenOutput></None><Compile Include="Properties\Settings.Designer.cs"><AutoGen>True</AutoGen><DependentUpon>Settings.settings</DependentUpon></Compile><Compile Include="ScriptMain.cs"><SubType>Code</SubType></Compile></ItemGroup><!-- Include the build rules for a C# project.--><Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" /><ProjectExtensions><VisualStudio><FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}"><ProjectProperties HostName="ScriptTask" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" DebugInfoExeName="" DebugInfoCommandLine="" DebugInfoWorkingDir="" IconImageList="" /><Host Name="ScriptTask" GeneratedNamespace="$safeprojectname" IconIndex=""></Host><ProjectClient><HostIdentifier>SSIS_ST120</HostIdentifier></ProjectClient></FlavorProperties></VisualStudio></ProjectExtensions></Project>]]></ProjectItem>
+          <ProjectItem
+            Name="Properties\Resources.resx"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1710,101 +1577,9 @@ using System.Runtime.CompilerServices;
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 </root>]]></ProjectItem>
-              <ProjectItem
-                Name="ST_e4c3f898bdfb4746a066c1a1052fbd25.csproj"
-                Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{74a5e283-91cb-4d15-821d-bbe13a97dff4}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ST_e4c3f898bdfb4746a066c1a1052fbd25</RootNamespace>
-    <AssemblyName>ST_e4c3f898bdfb4746a066c1a1052fbd25</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>.\bin\Debug\</OutputPath>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DebugSymbols>false</DebugSymbols>
-    <Optimize>true</Optimize>
-    <OutputPath>.\bin\Release\</OutputPath>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.SqlServer.ManagedDTS, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.SqlServer.ScriptTask, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AppDesigner Include="Properties\" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-         <Generator>ResXFileCodeGenerator</Generator>
-         <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-             <AutoGen>True</AutoGen>
-         <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-         <Generator>SettingsSingleFileGenerator</Generator>
-         <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-         <AutoGen>True</AutoGen>
-         <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="ScriptMain.cs">
-         <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-
-  <!-- Include the build rules for a C# project.-->
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-
-  <ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
-        <ProjectProperties HostName="ScriptTask" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" DebugInfoExeName="" DebugInfoCommandLine="" DebugInfoWorkingDir="" IconImageList="" />
-        <Host Name="ScriptTask" GeneratedNamespace="$safeprojectname" IconIndex="">
-        </Host>
-        <ProjectClient>
-            <HostIdentifier>SSIS_ST120</HostIdentifier>
-        </ProjectClient>
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>
-</Project>]]></ProjectItem>
-              <ProjectItem
-                Name="ScriptMain.cs"
-                Encoding="UTF8"><![CDATA[#region Help:  Introduction to the script task
+          <ProjectItem
+            Name="ScriptMain.cs"
+            Encoding="UTF8"><![CDATA[#region Help:  Introduction to the script task
 /* The Script Task allows you to perform virtually any operation that can be accomplished in
  * a .Net application within the context of an Integration Services control flow. 
  * 
@@ -1918,9 +1693,9 @@ namespace ST_e4c3f898bdfb4746a066c1a1052fbd25
 
 	}
 }]]></ProjectItem>
-              <ProjectItem
-                Name="Project"
-                Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+          <ProjectItem
+            Name="Project"
+            Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
 <c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
 	<msb:PropertyGroup>
 		<msb:CodeName>ST_e4c3f898bdfb4746a066c1a1052fbd25</msb:CodeName>
@@ -1929,7 +1704,7 @@ namespace ST_e4c3f898bdfb4746a066c1a1052fbd25
 		<msb:ProjectId>{EE1FBAF0-4BC3-400A-80E8-DB5A937FDEB1}</msb:ProjectId>
 	</msb:PropertyGroup>
 	<msb:ItemGroup>
-		<msb:Project Include="ST_e4c3f898bdfb4746a066c1a1052fbd25.csproj"/>
+		<msb:Project Include="ST_54fc5918619e4f07a62674b5b48a8270.csproj"/>
 		<msb:File Include="Properties\AssemblyInfo.cs"/>
 		<msb:File Include="Properties\Settings.settings"/>
 		<msb:File Include="Properties\Resources.resx"/>
@@ -1938,9 +1713,9 @@ namespace ST_e4c3f898bdfb4746a066c1a1052fbd25
 		<msb:File Include="ScriptMain.cs"/>
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Settings.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+          <ProjectItem
+            Name="Properties\Settings.Designer.cs"
+            Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
 // <auto-generated>
 //     This code was generated by a tool.
 //
@@ -1967,18 +1742,39 @@ namespace ST_e4c3f898bdfb4746a066c1a1052fbd25.Properties {
         }
     }
 }]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Resources.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+          <ProjectItem
+            Name="Properties\AssemblyInfo.cs"
+            Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_e4c3f898bdfb4746a066c1a1052fbd25")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_e4c3f898bdfb4746a066c1a1052fbd25")]
+[assembly: AssemblyCopyright("Copyright @  2016")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+          <ProjectItem
+            Name="Properties\Resources.Designer.cs"
+            Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
 // <auto-generated>
 //     This code was generated by a tool.
 //
@@ -2044,8 +1840,8 @@ namespace ST_e4c3f898bdfb4746a066c1a1052fbd25.Properties {
         }
     }
 }]]></ProjectItem>
-              <BinaryItem
-                Name="ST_e4c3f898bdfb4746a066c1a1052fbd25.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+          <BinaryItem
+            Name="ST_e4c3f898bdfb4746a066c1a1052fbd25.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
 ZGUuDQ0KJAAAAAAAAABQRQAATAEDAPeCy1cAAAAAAAAAAOAAAiELAQsAAA4AAAAIAAAAAAAAziwA
 AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAEAAAAAAAAAACAAAAAAgAAAAAAAAMAQIUAABAA
@@ -2153,36 +1949,8 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
-            </ScriptProject>
-          </DTS:ObjectData>
-        </DTS:Executable>
-      </DTS:Executables>
-      <DTS:PrecedenceConstraints>
-        <DTS:PrecedenceConstraint
-          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
-          DTS:CreationName=""
-          DTS:DTSID="{A34A9ED1-8AA9-4752-81BE-EDB9E080E4FA}"
-          DTS:From="Package\Foreach Loop Container\Script Task"
-          DTS:LogicalAnd="True"
-          DTS:ObjectName="Constraint"
-          DTS:To="Package\Foreach Loop Container\Data Flow Task" />
-        <DTS:PrecedenceConstraint
-          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 1]"
-          DTS:CreationName=""
-          DTS:DTSID="{06AF41E5-ABE2-4553-8076-ED1DAE3F1D63}"
-          DTS:From="Package\Foreach Loop Container\Data Flow Task"
-          DTS:LogicalAnd="True"
-          DTS:ObjectName="Constraint 1"
-          DTS:To="Package\Foreach Loop Container\Calculate Total Row Imported" />
-      </DTS:PrecedenceConstraints>
-      <DTS:ForEachVariableMappings>
-        <DTS:ForEachVariableMapping
-          DTS:CreationName=""
-          DTS:DTSID="{5C5545E9-FFB9-4B8C-AA5E-1F07ADE89353}"
-          DTS:ObjectName="{5C5545E9-FFB9-4B8C-AA5E-1F07ADE89353}"
-          DTS:ValueIndex="0"
-          DTS:VariableName="User::CurrentAccessFile" />
-      </DTS:ForEachVariableMappings>
+        </ScriptProject>
+      </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Start Package Audit"
@@ -2314,11 +2082,11 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint]"
       DTS:CreationName=""
-      DTS:DTSID="{64AEE94F-AB82-419E-8DFA-21516E6FA64E}"
-      DTS:From="Package\Truncate Table"
+      DTS:DTSID="{ddc69d91-6fe6-4042-a945-8131a994e0b0}"
+      DTS:From="Package\Script Task"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
-      DTS:To="Package\Foreach Loop Container" />
+      DTS:To="Package\Data Flow Task" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
       DTS:CreationName=""
@@ -2328,13 +2096,21 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
       DTS:ObjectName="Constraint 1"
       DTS:To="Package\Start Table Audit" />
     <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{42a40114-9cc3-47f8-a76e-e1f7ad8db3ab}"
+      DTS:From="Package\Data Flow Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1 1"
+      DTS:To="Package\Calculate Total Row Imported" />
+    <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
-      DTS:DTSID="{948FF4C2-46B6-4185-8DCF-0C3EB051FC1C}"
-      DTS:From="Package\Foreach Loop Container"
+      DTS:DTSID="{151E1992-3B4F-4920-9224-6DD9D5132BB0}"
+      DTS:From="Package\Truncate Table"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
-      DTS:To="Package\End Table Audit" />
+      DTS:To="Package\Script Task" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
       DTS:CreationName=""
@@ -2351,6 +2127,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 4"
       DTS:To="Package\End Packge Audit" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{A63196D6-40FD-4E68-BF88-36087DE96791}"
+      DTS:From="Package\Calculate Total Row Imported"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\End Table Audit" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -2367,74 +2151,11 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
         <NodeLayout
           Size="163,42"
           Id="Package\End Packge Audit"
-          TopLeft="626,724" />
+          TopLeft="614,628" />
         <NodeLayout
           Size="154,42"
           Id="Package\End Table Audit"
-          TopLeft="626,649" />
-        <NodeLayout
-          Size="219,42"
-          Id="Package\Foreach Loop Container\Calculate Total Row Imported"
-          TopLeft="80.5,221.5" />
-        <NodeLayout
-          Size="151,42"
-          Id="Package\Foreach Loop Container\Data Flow Task"
-          TopLeft="113.5,124.5" />
-        <NodeLayout
-          Size="131,42"
-          Id="Package\Foreach Loop Container\Script Task"
-          TopLeft="127,21" />
-        <EdgeLayout
-          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 1]"
-          TopLeft="189.5,166.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,55"
-              Start="0,0"
-              End="0,47.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,47.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
-          TopLeft="190.75,63">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,61.5"
-              Start="0,0"
-              End="0,54">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,54" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <ContainerLayout
-          HeaderHeight="43"
-          IsExpanded="True"
-          PanelSize="398,324"
-          Size="398,367"
-          Id="Package\Foreach Loop Container"
-          TopLeft="499,255" />
+          TopLeft="614,553" />
         <NodeLayout
           Size="191,42"
           Id="Package\Start Package Audit"
@@ -2447,28 +2168,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
           Size="150,42"
           Id="Package\Truncate Table"
           TopLeft="617.5,168.5" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="695.25,210.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,44.5"
-              Start="0,0"
-              End="0,37">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,37" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="696,56">
@@ -2483,28 +2182,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,24.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="700.5,622">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,27"
-              Start="0,0"
-              End="0,19.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,19.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2537,7 +2214,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="705.25,691">
+          TopLeft="693.25,595">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -2557,24 +2234,136 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="219,42"
+          Id="Package\Calculate Total Row Imported"
+          TopLeft="582,459.5" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Data Flow Task"
+          TopLeft="615,362.5" />
+        <NodeLayout
+          Size="131,42"
+          Id="Package\Script Task"
+          TopLeft="628.5,259" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="692.25,301">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61.5"
+              Start="0,0"
+              End="0,54">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1 1]"
+          TopLeft="691,404.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55"
+              Start="0,0"
+              End="0,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="693.25,210.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48.5"
+              Start="0,0"
+              End="0,41">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="691.25,501.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.5"
+              Start="0,0"
+              End="0,44">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
   <TaskHost
-    design-time-name="Package\Foreach Loop Container\Data Flow Task">
+    design-time-name="Package\Data Flow Task">
     <LayoutInfo>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="154,42"
-          Id="Package\Foreach Loop Container\Data Flow Task\Derived Column"
-          TopLeft="532,321" />
+          Size="191,42"
+          Id="Package\Data Flow Task\Source - tbl_wm_replen"
+          TopLeft="514.5,147" />
         <NodeLayout
           Size="130,42"
-          Id="Package\Foreach Loop Container\Data Flow Task\Row Count"
+          Id="Package\Data Flow Task\Row Count"
           TopLeft="538,405" />
+        <NodeLayout
+          Size="182,42"
+          Id="Package\Data Flow Task\Data Conversion 0 - 0"
+          TopLeft="519,249" />
+        <NodeLayout
+          Size="212,42"
+          Id="Package\Data Flow Task\Destination - tbl_wm_replen"
+          TopLeft="501,481" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Data Flow Task\Derived Column"
+          TopLeft="532,321" />
         <EdgeLayout
-          Id="Package\Foreach Loop Container\Data Flow Task.Paths[Derived Column Output]"
+          Id="Package\Data Flow Task.Paths[Derived Column Output]"
           TopLeft="606,363">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -2595,42 +2384,8 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="191,42"
-          Id="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen"
-          TopLeft="514.5,147" />
-        <NodeLayout
-          Size="182,42"
-          Id="Package\Foreach Loop Container\Data Flow Task\Data Conversion 0 - 0"
-          TopLeft="519,249" />
-        <NodeLayout
-          Size="212,42"
-          Id="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen"
-          TopLeft="501,481" />
         <EdgeLayout
-          Id="Package\Foreach Loop Container\Data Flow Task.Paths[OLE DB Source Output]"
-          TopLeft="610,189">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60"
-              Start="0,0"
-              End="0,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Foreach Loop Container\Data Flow Task.Paths[Data Conversion Output]"
+          Id="Package\Data Flow Task.Paths[Data Conversion Output]"
           TopLeft="609.5,291">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -2652,7 +2407,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Foreach Loop Container\Data Flow Task.Paths[Row Count Output 1]"
+          Id="Package\Data Flow Task.Paths[Row Count Output 1]"
           TopLeft="605,447">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -2673,11 +2428,33 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
+          TopLeft="610,189">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Foreach Loop Container\Data Flow Task\Source - tbl_wm_replen">
+    design-time-name="Package\Data Flow Task\Source - tbl_wm_replen">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2690,7 +2467,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Foreach Loop Container\Data Flow Task\Destination - tbl_wm_replen">
+    design-time-name="Package\Data Flow Task\Destination - tbl_wm_replen">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

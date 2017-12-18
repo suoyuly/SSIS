@@ -2,63 +2,58 @@
 <BuildLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectInfo>
     <Name>ISP_RL_Access_Load</Name>
-    <LastWriteTime>2017-05-02T00:17:08.9611824Z</LastWriteTime>
+    <LastWriteTime>2017-12-18T03:32:12.6171026Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
     <ProjectBuildItemInfo>
       <Name>RL_WM_Item_Load.dtsx</Name>
-      <LastWriteTime>2016-10-27T03:24:59.3998006Z</LastWriteTime>
+      <LastWriteTime>2017-12-18T02:32:25.3827735Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RL_WM_Sls_Sls_By_Day_Load.dtsx</Name>
-      <LastWriteTime>2016-10-28T02:48:36.9598275Z</LastWriteTime>
+      <LastWriteTime>2017-12-18T03:04:02.2752761Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RL_WM_Fcst_Load.dtsx</Name>
-      <LastWriteTime>2016-10-28T01:58:01.267673Z</LastWriteTime>
+      <LastWriteTime>2017-12-18T02:31:38.290242Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RL_WM_Ainv_Cinv_OO_Ship_Load.dtsx</Name>
-      <LastWriteTime>2016-10-28T02:04:35.4548341Z</LastWriteTime>
+      <LastWriteTime>2017-12-15T03:52:09.0708127Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RL_WM_PO_Load.dtsx</Name>
-      <LastWriteTime>2016-10-28T02:32:56.4083277Z</LastWriteTime>
+      <LastWriteTime>2017-12-18T02:37:34.5754222Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RL_WM_Replen_Load.dtsx</Name>
-      <LastWriteTime>2016-10-28T02:47:12.5066923Z</LastWriteTime>
+      <LastWriteTime>2017-12-18T02:39:24.0506274Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RL_WM_Stores_Load.dtsx</Name>
-      <LastWriteTime>2017-01-24T03:59:13.5501401Z</LastWriteTime>
+      <LastWriteTime>2017-12-18T03:30:08.5966952Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RL_WM_MABD_Load.dtsx</Name>
-      <LastWriteTime>2016-10-28T02:19:04.3279639Z</LastWriteTime>
+      <LastWriteTime>2017-12-18T02:31:16.0310699Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>ETL_Main.dtsx</Name>
-      <LastWriteTime>2017-05-01T23:38:22.4914561Z</LastWriteTime>
+      <LastWriteTime>2017-12-18T03:07:07.5782311Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RL_WM_Whse_Load.dtsx</Name>
-      <LastWriteTime>2017-01-24T04:00:04.4324196Z</LastWriteTime>
-      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
-    </ProjectBuildItemInfo>
-    <ProjectBuildItemInfo>
-      <Name>RL_WM_Item_Load_BU.dtsx</Name>
-      <LastWriteTime>2016-10-27T03:24:29.5123673Z</LastWriteTime>
+      <LastWriteTime>2017-12-18T03:06:27.0746879Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
@@ -77,8 +72,8 @@
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
-      <Name>RL_WM_File_Clean.dtsx</Name>
-      <LastWriteTime>2017-05-02T00:18:30.5828802Z</LastWriteTime>
+      <Name>RL_WM_File_Unzip.dtsx</Name>
+      <LastWriteTime>2017-12-15T03:33:26.9076593Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>
