@@ -11,11 +11,22 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="ETL_Main"
   DTS:PackageType="5"
-  DTS:VersionBuild="51"
-  DTS:VersionGUID="{0BC085DA-8DCE-4177-B2DF-5BC6E37A02C3}">
+  DTS:VersionBuild="72"
+  DTS:VersionGUID="{899FA779-108B-4E91-BAB1-3915A71EE46B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{04EAA0B0-696D-41CF-BDF7-BA1F7702E3EE}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;20&quot;+LEFT(RIGHT( @[User::Rimports_Zip_File], 12) , 8)"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="File_Download_Date">
+      <DTS:VariableValue
+        DTS:DataType="8">2016-08-08</DTS:VariableValue>
+    </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
       DTS:DTSID="{D5288E73-1894-4730-A91B-03604E80B25F}"
@@ -28,21 +39,23 @@
   </DTS:Variables>
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Run for each ETL Date"
+      DTS:refId="Package\Run for each file in the download folder"
       DTS:CreationName="STOCK:FOREACHLOOP"
       DTS:Description="Foreach Loop Container"
       DTS:DTSID="{CDC230DC-8C59-40C0-BA87-B6C9727EFB39}"
       DTS:ExecutableType="STOCK:FOREACHLOOP"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Run for each ETL Date">
+      DTS:ObjectName="Run for each file in the download folder">
       <DTS:ForEachEnumerator
         DTS:CreationName="Microsoft.ForEachFileEnumerator"
         DTS:DTSID="{FDD9DEFA-BD97-498A-8830-93E0A80E62B0}"
         DTS:ObjectName="{FDD9DEFA-BD97-498A-8830-93E0A80E62B0}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[$Project::Downloaded_Zip_File_Folder]</DTS:PropertyExpression>
         <DTS:ObjectData>
           <ForEachFileEnumeratorProperties>
             <FEFEProperty
-              Folder="C:\Users\ly198\Downloads" />
+              Folder="C:\WM\Downloads" />
             <FEFEProperty
               FileSpec="Downloads_Auto_Rimports*.zip" />
             <FEFEProperty
@@ -55,7 +68,7 @@
       <DTS:Variables />
       <DTS:Executables>
         <DTS:Executable
-          DTS:refId="Package\Run for each ETL Date\Clean Up Import Files"
+          DTS:refId="Package\Run for each file in the download folder\Clean Up Import Files"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{b7c689ff-f1bb-4d6b-8b61-dec59bda47c9}"
@@ -72,9 +85,10 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Run for each ETL Date\Load Raw Data"
+          DTS:refId="Package\Run for each file in the download folder\Load Raw Data"
           DTS:CreationName="STOCK:SEQUENCE"
           DTS:Description="Sequence Container"
+          DTS:Disabled="True"
           DTS:DTSID="{8160b6b0-1612-4748-9d0b-d77ac17c3a82}"
           DTS:ExecutableType="STOCK:SEQUENCE"
           DTS:LocaleID="-1"
@@ -82,7 +96,7 @@
           <DTS:Variables />
           <DTS:Executables>
             <DTS:Executable
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data\RL_WM_Ainv_Cinv_OO_Ship_Load"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Ainv_Cinv_OO_Ship_Load"
               DTS:CreationName="Microsoft.ExecutePackageTask"
               DTS:Description="Execute Package Task"
               DTS:DTSID="{feb121db-f6eb-41d5-a302-f1e5e321f256}"
@@ -99,7 +113,7 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data\RL_WM_Fcst_Load"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Fcst_Load"
               DTS:CreationName="Microsoft.ExecutePackageTask"
               DTS:Description="Execute Package Task"
               DTS:DTSID="{c3ef0e36-895d-4e10-a4c7-fd4a599708e0}"
@@ -116,7 +130,7 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data\RL_WM_Item_Load"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Item_Load"
               DTS:CreationName="Microsoft.ExecutePackageTask"
               DTS:Description="Execute Package Task"
               DTS:DTSID="{f7b5ff2a-89b0-4029-ae8a-163d27299acd}"
@@ -133,7 +147,7 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data\RL_WM_MABD_Load"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_MABD_Load"
               DTS:CreationName="Microsoft.ExecutePackageTask"
               DTS:Description="Execute Package Task"
               DTS:DTSID="{0879c3d1-6163-4b4e-9ec8-b46e90b218ba}"
@@ -150,7 +164,7 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data\RL_WM_PO_Load"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_PO_Load"
               DTS:CreationName="Microsoft.ExecutePackageTask"
               DTS:Description="Execute Package Task"
               DTS:DTSID="{96575a09-6355-4a91-9364-e688dc1c44b3}"
@@ -167,7 +181,7 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data\RL_WM_Replen_Load"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Replen_Load"
               DTS:CreationName="Microsoft.ExecutePackageTask"
               DTS:Description="Execute Package Task"
               DTS:DTSID="{17befece-7ac4-4c63-b7af-56f08acbaeb2}"
@@ -184,7 +198,7 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data\RL_WM_Sls_Sls_By_Day_Load"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Sls_Sls_By_Day_Load"
               DTS:CreationName="Microsoft.ExecutePackageTask"
               DTS:Description="Execute Package Task"
               DTS:DTSID="{759e0174-d38a-4896-9b6d-86fe05c23a29}"
@@ -201,7 +215,7 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data\RL_WM_Stores_Load"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Stores_Load"
               DTS:CreationName="Microsoft.ExecutePackageTask"
               DTS:Description="Execute Package Task"
               DTS:DTSID="{23c4faea-8105-493d-bed9-6a0ac5d6de00}"
@@ -218,7 +232,7 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data\RL_WM_Whse_Load"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Whse_Load"
               DTS:CreationName="Microsoft.ExecutePackageTask"
               DTS:Description="Execute Package Task"
               DTS:DTSID="{3099c54b-037c-4fce-8f1b-5af546b5de28}"
@@ -237,73 +251,73 @@
           </DTS:Executables>
           <DTS:PrecedenceConstraints>
             <DTS:PrecedenceConstraint
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint]"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint]"
               DTS:CreationName=""
               DTS:DTSID="{08bf7650-a03a-44ef-93a6-3b331fbf9a1a}"
-              DTS:From="Package\Run for each ETL Date\Load Raw Data\RL_WM_Item_Load"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Item_Load"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint"
-              DTS:To="Package\Run for each ETL Date\Load Raw Data\RL_WM_Ainv_Cinv_OO_Ship_Load" />
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Ainv_Cinv_OO_Ship_Load" />
             <DTS:PrecedenceConstraint
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 1]"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 1]"
               DTS:CreationName=""
               DTS:DTSID="{88c75ac9-9b8c-4f12-ae7c-06d994b3630b}"
-              DTS:From="Package\Run for each ETL Date\Load Raw Data\RL_WM_Ainv_Cinv_OO_Ship_Load"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Ainv_Cinv_OO_Ship_Load"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint 1"
-              DTS:To="Package\Run for each ETL Date\Load Raw Data\RL_WM_Fcst_Load" />
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Fcst_Load" />
             <DTS:PrecedenceConstraint
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 2]"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 2]"
               DTS:CreationName=""
               DTS:DTSID="{c38533c5-9e47-4434-a8da-3fcb1e946537}"
-              DTS:From="Package\Run for each ETL Date\Load Raw Data\RL_WM_Fcst_Load"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Fcst_Load"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint 2"
-              DTS:To="Package\Run for each ETL Date\Load Raw Data\RL_WM_MABD_Load" />
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_MABD_Load" />
             <DTS:PrecedenceConstraint
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 3]"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 3]"
               DTS:CreationName=""
               DTS:DTSID="{a19f3d3a-7aa1-4105-890b-56a2c34efb6b}"
-              DTS:From="Package\Run for each ETL Date\Load Raw Data\RL_WM_MABD_Load"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_MABD_Load"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint 3"
-              DTS:To="Package\Run for each ETL Date\Load Raw Data\RL_WM_PO_Load" />
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_PO_Load" />
             <DTS:PrecedenceConstraint
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 4]"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 4]"
               DTS:CreationName=""
               DTS:DTSID="{8aa9f9df-89ba-44d3-a955-83abde6cb043}"
-              DTS:From="Package\Run for each ETL Date\Load Raw Data\RL_WM_PO_Load"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_PO_Load"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint 4"
-              DTS:To="Package\Run for each ETL Date\Load Raw Data\RL_WM_Replen_Load" />
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Replen_Load" />
             <DTS:PrecedenceConstraint
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 5]"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 5]"
               DTS:CreationName=""
               DTS:DTSID="{acf635c9-eaf6-4ba9-a16b-b41d295c1f64}"
-              DTS:From="Package\Run for each ETL Date\Load Raw Data\RL_WM_Sls_Sls_By_Day_Load"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Sls_Sls_By_Day_Load"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint 5"
-              DTS:To="Package\Run for each ETL Date\Load Raw Data\RL_WM_Stores_Load" />
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Stores_Load" />
             <DTS:PrecedenceConstraint
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 6]"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 6]"
               DTS:CreationName=""
               DTS:DTSID="{521294e2-2612-43c5-8c48-311518fa82c9}"
-              DTS:From="Package\Run for each ETL Date\Load Raw Data\RL_WM_Stores_Load"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Stores_Load"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint 6"
-              DTS:To="Package\Run for each ETL Date\Load Raw Data\RL_WM_Whse_Load" />
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Whse_Load" />
             <DTS:PrecedenceConstraint
-              DTS:refId="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 7]"
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 7]"
               DTS:CreationName=""
               DTS:DTSID="{1039c1f9-2abb-4794-97c7-2b51b3536413}"
-              DTS:From="Package\Run for each ETL Date\Load Raw Data\RL_WM_Replen_Load"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Replen_Load"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint 7"
-              DTS:To="Package\Run for each ETL Date\Load Raw Data\RL_WM_Sls_Sls_By_Day_Load" />
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Sls_Sls_By_Day_Load" />
           </DTS:PrecedenceConstraints>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Run for each ETL Date\Sequence Container"
+          DTS:refId="Package\Run for each file in the download folder\Sequence Container"
           DTS:CreationName="STOCK:SEQUENCE"
           DTS:Description="Sequence Container"
           DTS:Disabled="True"
@@ -314,7 +328,7 @@
           <DTS:Variables />
           <DTS:Executables>
             <DTS:Executable
-              DTS:refId="Package\Run for each ETL Date\Sequence Container\DW_Load"
+              DTS:refId="Package\Run for each file in the download folder\Sequence Container\DW_Load"
               DTS:CreationName="Microsoft.ExecutePackageTask"
               DTS:Description="Execute Package Task"
               DTS:DTSID="{b848c69b-8fac-4774-9023-c04b76f03332}"
@@ -335,27 +349,27 @@
       </DTS:Executables>
       <DTS:PrecedenceConstraints>
         <DTS:PrecedenceConstraint
-          DTS:refId="Package\Run for each ETL Date.PrecedenceConstraints[Constraint]"
+          DTS:refId="Package\Run for each file in the download folder.PrecedenceConstraints[Constraint]"
           DTS:CreationName=""
           DTS:DTSID="{583e063d-434e-4448-b06a-8e7fd6e3ac2a}"
-          DTS:From="Package\Run for each ETL Date\Load Raw Data"
+          DTS:From="Package\Run for each file in the download folder\Load Raw Data"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint"
-          DTS:To="Package\Run for each ETL Date\Sequence Container" />
+          DTS:To="Package\Run for each file in the download folder\Sequence Container" />
         <DTS:PrecedenceConstraint
-          DTS:refId="Package\Run for each ETL Date.PrecedenceConstraints[Constraint 1]"
+          DTS:refId="Package\Run for each file in the download folder.PrecedenceConstraints[Constraint 1]"
           DTS:CreationName=""
           DTS:DTSID="{11c9d706-2f0d-427f-ba34-ecfc31686ffa}"
-          DTS:From="Package\Run for each ETL Date\Clean Up Import Files"
+          DTS:From="Package\Run for each file in the download folder\Clean Up Import Files"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 1"
-          DTS:To="Package\Run for each ETL Date\Load Raw Data" />
+          DTS:To="Package\Run for each file in the download folder\Load Raw Data" />
       </DTS:PrecedenceConstraints>
       <DTS:ForEachVariableMappings>
         <DTS:ForEachVariableMapping
           DTS:CreationName=""
-          DTS:DTSID="{DC545E6B-7EC8-4B38-98DF-8BCFD4F4A63E}"
-          DTS:ObjectName="{DC545E6B-7EC8-4B38-98DF-8BCFD4F4A63E}"
+          DTS:DTSID="{EB41C197-059E-4B45-BC65-6EAA4496BB65}"
+          DTS:ObjectName="{EB41C197-059E-4B45-BC65-6EAA4496BB65}"
           DTS:ValueIndex="0"
           DTS:VariableName="User::Rimports_Zip_File" />
       </DTS:ForEachVariableMappings>
@@ -375,46 +389,46 @@
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="181,42"
-          Id="Package\Run for each ETL Date\Clean Up Import Files"
+          Id="Package\Run for each file in the download folder\Clean Up Import Files"
           TopLeft="122.5,430.75" />
         <NodeLayout
           Size="183,42"
-          Id="Package\Run for each ETL Date\Load Raw Data\RL_WM_Ainv_Cinv_OO_Ship_Load"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Ainv_Cinv_OO_Ship_Load"
           TopLeft="56.6666666666667,123.333333333333" />
         <NodeLayout
           Size="168,42"
-          Id="Package\Run for each ETL Date\Load Raw Data\RL_WM_Fcst_Load"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Fcst_Load"
           TopLeft="62.6666666666667,210.333333333333" />
         <NodeLayout
           Size="183,42"
-          Id="Package\Run for each ETL Date\Load Raw Data\RL_WM_Item_Load"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Item_Load"
           TopLeft="53.6666666666667,20.3333333333334" />
         <NodeLayout
           Size="177,42"
-          Id="Package\Run for each ETL Date\Load Raw Data\RL_WM_MABD_Load"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_MABD_Load"
           TopLeft="52.6666666666667,299.333333333333" />
         <NodeLayout
           Size="162,42"
-          Id="Package\Run for each ETL Date\Load Raw Data\RL_WM_PO_Load"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_PO_Load"
           TopLeft="65.6666666666667,397.333333333333" />
         <NodeLayout
           Size="181,42"
-          Id="Package\Run for each ETL Date\Load Raw Data\RL_WM_Replen_Load"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Replen_Load"
           TopLeft="49.6666666666666,503.333333333333" />
         <NodeLayout
           Size="222,42"
-          Id="Package\Run for each ETL Date\Load Raw Data\RL_WM_Sls_Sls_By_Day_Load"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Sls_Sls_By_Day_Load"
           TopLeft="22.6666666666667,579.333333333333" />
         <NodeLayout
           Size="178,42"
-          Id="Package\Run for each ETL Date\Load Raw Data\RL_WM_Stores_Load"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Stores_Load"
           TopLeft="37.6666666666667,647.333333333333" />
         <NodeLayout
           Size="175,42"
-          Id="Package\Run for each ETL Date\Load Raw Data\RL_WM_Whse_Load"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Whse_Load"
           TopLeft="40.6666666666666,722.333333333333" />
         <EdgeLayout
-          Id="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint]"
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint]"
           TopLeft="146.666666666667,62.3333333333334">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -436,7 +450,7 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 1]"
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 1]"
           TopLeft="147.416666666667,165.333333333333">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -458,7 +472,7 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 2]"
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 2]"
           TopLeft="143.916666666667,252.333333333333">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -480,7 +494,7 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 3]"
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 3]"
           TopLeft="143.916666666667,341.333333333333">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -502,7 +516,7 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 4]"
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 4]"
           TopLeft="143.416666666667,439.333333333333">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -524,7 +538,7 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 5]"
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 5]"
           TopLeft="130.166666666667,621.333333333333">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -546,7 +560,7 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 6]"
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 6]"
           TopLeft="127.416666666667,689.333333333333">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -568,7 +582,7 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Run for each ETL Date\Load Raw Data.PrecedenceConstraints[Constraint 7]"
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 7]"
           TopLeft="136.916666666667,545.333333333333">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -594,21 +608,21 @@
           IsExpanded="True"
           PanelSize="344,819"
           Size="344,862"
-          Id="Package\Run for each ETL Date\Load Raw Data"
+          Id="Package\Run for each file in the download folder\Load Raw Data"
           TopLeft="437.5,20.75" />
         <NodeLayout
           Size="183,42"
-          Id="Package\Run for each ETL Date\Sequence Container\DW_Load"
+          Id="Package\Run for each file in the download folder\Sequence Container\DW_Load"
           TopLeft="70,91" />
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
           PanelSize="336,327"
           Size="336,370"
-          Id="Package\Run for each ETL Date\Sequence Container"
+          Id="Package\Run for each file in the download folder\Sequence Container"
           TopLeft="1011.16666666667,266.083333333328" />
         <EdgeLayout
-          Id="Package\Run for each ETL Date.PrecedenceConstraints[Constraint]"
+          Id="Package\Run for each file in the download folder.PrecedenceConstraints[Constraint]"
           TopLeft="781.5,451.416666666664">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -630,7 +644,7 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Run for each ETL Date.PrecedenceConstraints[Constraint 1]"
+          Id="Package\Run for each file in the download folder.PrecedenceConstraints[Constraint 1]"
           TopLeft="303.5,451.75">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -656,8 +670,8 @@
           IsExpanded="True"
           PanelSize="1352,938"
           Size="1352,981"
-          Id="Package\Run for each ETL Date"
-          TopLeft="51,524" />
+          Id="Package\Run for each file in the download folder"
+          TopLeft="50,524" />
       </GraphLayout>
     </LayoutInfo>
   </Package>

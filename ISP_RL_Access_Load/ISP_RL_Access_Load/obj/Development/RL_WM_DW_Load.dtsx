@@ -9,12 +9,12 @@
   DTS:DTSID="{2B3553DF-56A5-4251-9B7C-22C8E2F04C9A}"
   DTS:EnableConfig="True"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="13.0.2150.2"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
   DTS:LocaleID="1033"
   DTS:MaxErrorCount="0"
   DTS:ObjectName="RL_WM_DW_Load"
-  DTS:VersionBuild="70"
-  DTS:VersionGUID="{EDE8D697-8A53-456C-9253-26FBE400573E}">
+  DTS:VersionBuild="73"
+  DTS:VersionGUID="{9519355B-00A4-452C-9DAC-F62EAC385239}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Configurations>
@@ -35,7 +35,7 @@
       DTS:Namespace="User"
       DTS:ObjectName="Current_DateTime">
       <DTS:VariableValue
-        DTS:DataType="7">1/25/2017 9:35:46 PM</DTS:VariableValue>
+        DTS:DataType="7">12/28/2017 10:29:32 PM</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -210,18 +210,18 @@
         <NodeLayout
           Size="163,42"
           Id="Package\End Packge Audit"
-          TopLeft="608,221" />
+          TopLeft="432,379" />
         <NodeLayout
           Size="163,42"
           Id="Package\Execute SQL Task"
-          TopLeft="610,123" />
+          TopLeft="434,281" />
         <NodeLayout
           Size="191,42"
           Id="Package\Start Package Audit"
-          TopLeft="600,14" />
+          TopLeft="424,172" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="693.5,56">
+          TopLeft="517.5,214">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -243,7 +243,7 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="690.5,165">
+          TopLeft="514.5,323">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"

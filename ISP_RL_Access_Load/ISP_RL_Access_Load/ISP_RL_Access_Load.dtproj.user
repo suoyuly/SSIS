@@ -4,6 +4,8 @@
     <Configuration>
       <Name>Development</Name>
       <Options>
+        <ServerName>DESKTOP-QNFHJOC</ServerName>
+        <PathOnServer>/SSISDB/SSIS/ISP_RL_Access_Load</PathOnServer>
         <Run64BitRuntime>true</Run64BitRuntime>
         <UserIDs />
         <UserPasswords />

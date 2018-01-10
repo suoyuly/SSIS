@@ -12,6 +12,7 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{75266ADE-FF10-472C-871C-2C6AB96704AB}.Development|Default.ActiveCfg = Development
 		{75266ADE-FF10-472C-871C-2C6AB96704AB}.Development|Default.Build.0 = Development
+		{75266ADE-FF10-472C-871C-2C6AB96704AB}.Development|Default.Deploy.0 = Development
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
