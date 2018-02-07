@@ -7,13 +7,14 @@
   DTS:CreatorName="VINCENT-HP\Vincent"
   DTS:Description="SSIS Package Description"
   DTS:DTSID="{E6E560A5-2786-417C-9DCD-FC00A4E98C13}"
+  DTS:EnableConfig="True"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="12.0.2430.0"
   DTS:LocaleID="1033"
   DTS:MaxErrorCount="0"
   DTS:ObjectName="RL_WM_PO_Load"
-  DTS:VersionBuild="71"
-  DTS:VersionGUID="{8249AAA7-4B16-4692-B49B-B1A80A0AA6BF}">
+  DTS:VersionBuild="74"
+  DTS:VersionGUID="{58C93AC0-9A84-4D44-B98B-A209C348A311}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -30,12 +31,20 @@
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="File_Download_Date"
+      DTS:ConfigurationVariable="\Package.Variables[User::Run_Date].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{CE7AE3F0-EC24-4D17-B614-1584ED3406E9}"
+      DTS:ObjectName="Run_Date_Configuration" />
+  </DTS:Configurations>
   <DTS:Variables>
     <DTS:Variable
       DTS:CreationName=""
       DTS:DTSID="{38968E9C-D59A-4555-AA74-624A0B1A79E4}"
       DTS:EvaluateAsExpression="True"
-      DTS:Expression="@[$Project::Working_Folder]+&quot;\\Rimports\\tbl_WM_POs.mdb&quot;"
+      DTS:Expression="@[$Project::Working_Folder]+&quot;\\tbl_WM_POs.mdb&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="CurrentAccessFile">
@@ -51,7 +60,7 @@
       DTS:Namespace="User"
       DTS:ObjectName="Current_DateTime">
       <DTS:VariableValue
-        DTS:DataType="7">12/17/2017 10:32:13 PM</DTS:VariableValue>
+        DTS:DataType="7">1/14/2018 8:59:53 PM</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -70,6 +79,16 @@
       DTS:ObjectName="Row_Count">
       <DTS:VariableValue
         DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3703C234-14D9-4F84-B97F-3F582F536B34}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Run_Date">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -2950,7 +2969,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{941E2DE5-C585-438B-B221-6FF1C84ECE6E}"
-          SQLTask:SqlStatementSource="EXEC [dbo].[sp_audit_table_ins] ?,?,?,? OUTPUT" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          SQLTask:SqlStatementSource="EXEC [dbo].[sp_audit_table_ins] ?,?,?,?,? OUTPUT" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ParameterBinding
             SQLTask:ParameterName="0"
             SQLTask:DtsVariableName="User::Package_SK"
@@ -2970,10 +2989,16 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             SQLTask:DataType="7"
             SQLTask:ParameterSize="-1" />
           <SQLTask:ParameterBinding
-            SQLTask:ParameterName="3"
+            SQLTask:ParameterName="4"
             SQLTask:DtsVariableName="User::Table_SK"
             SQLTask:ParameterDirection="Output"
             SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::Run_Date"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="7"
             SQLTask:ParameterSize="-1" />
         </SQLTask:SqlTaskData>
       </DTS:ObjectData>

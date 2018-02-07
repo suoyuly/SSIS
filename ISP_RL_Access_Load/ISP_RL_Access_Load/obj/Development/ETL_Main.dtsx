@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="ETL_Main"
   DTS:PackageType="5"
-  DTS:VersionBuild="72"
-  DTS:VersionGUID="{899FA779-108B-4E91-BAB1-3915A71EE46B}">
+  DTS:VersionBuild="75"
+  DTS:VersionGUID="{900D3974-5E0B-46C1-879F-6778153ABCA3}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -88,7 +88,6 @@
           DTS:refId="Package\Run for each file in the download folder\Load Raw Data"
           DTS:CreationName="STOCK:SEQUENCE"
           DTS:Description="Sequence Container"
-          DTS:Disabled="True"
           DTS:DTSID="{8160b6b0-1612-4748-9d0b-d77ac17c3a82}"
           DTS:ExecutableType="STOCK:SEQUENCE"
           DTS:LocaleID="-1"
@@ -320,7 +319,6 @@
           DTS:refId="Package\Run for each file in the download folder\Sequence Container"
           DTS:CreationName="STOCK:SEQUENCE"
           DTS:Description="Sequence Container"
-          DTS:Disabled="True"
           DTS:DTSID="{c94ac884-3cf8-4b1a-97d7-ff9938f8d546}"
           DTS:ExecutableType="STOCK:SEQUENCE"
           DTS:LocaleID="-1"
