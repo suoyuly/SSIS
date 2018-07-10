@@ -15,7 +15,7 @@
       <SSIS:Project SSIS:ProtectionLevel="EncryptSensitiveWithUserKey" xmlns:SSIS="www.microsoft.com/SqlServer/SSIS">
         <SSIS:Properties>
           <SSIS:Property SSIS:Name="ID">{26c6c957-3d18-4f0e-81af-b7a481030c38}</SSIS:Property>
-          <SSIS:Property SSIS:Name="Name">ISP_RL_Access_Load</SSIS:Property>
+          <SSIS:Property SSIS:Name="Name">ISP_RL_Access_Non_Rimports_Load</SSIS:Property>
           <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
           <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
           <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">VINCENT-HP</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAI+oScLYSGkOYuo6MGzC0MAAAAAACAAAAAAAQZgAAAAEAACAAAAAVmQLrpN8C0ij6SOfqfZ7G+ICHKxci3QI31tS5whuCAAAAAAAOgAAAAAIAACAAAADRGf8IZIIQ4hP/FHn4kW9rELN9yO/pCf+ttUHqeB/zcpAAAACtXkjF5TOB0CI8hbheNmZK5pKcj7pWg0wYpqv+L+q4cf8U+pLejQCT/yB4qsiJ86E6gT/iJ3yQLtqDboWLCx6tU2FOlM0unOR3wfcLb/zPin0JuWh22Va32C3rlyF2pejAgobE/r9RLZvGVGLHivNkuTbP+XnKtca9Y7Q8HbJt1SZ/+44Duf2Zu+4R/jUHzklAAAAA/0HUUPrYx8ucs0vbfPnkIdLIJSqidZRNqFiRXixBrME24lFgEYHYap/kWEe+8+kiHV2faPI9yxgU2ceNovzzjg==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAZMlAqeb5KE2l/lSP0myHfgAAAAACAAAAAAAQZgAAAAEAACAAAABexn8a2hlhWLAYFe/XigUpEelxXGH5vaOUzCyoDa70uwAAAAAOgAAAAAIAACAAAADNaSKhDhCxdcL4M6s+WBJ8XslKbIUKVExu9pw8nl8V7pAAAABDW3PdDdSVj6HiRrCeeUofk2rfqYQyEnI0XCnONpbXZLQdVBhvdF2ic7yK1BbHrVLV1TZEYeTzwIP9M5M2FcpuqsUZG609YQX5wEC+rF1HA7OU/y+yezcdSwaN+pbSDapJzSneqLsIb1L/qxMdQ+K6Z35Wk7v2YoXPIN8hhG7y6kAwJPONWTbBKvR3Wz3qNdFAAAAAG7qhdv/s/trrd542OLD6ENnuTJd02nJjXqs3mBt8n4d8QM8IsMQ2KONfzLd61XNHpwYe+wR2t0QysbdebsqbVA==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -60,7 +60,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">Data Source=DESKTOP-QNFHJOC;Initial Catalog=WM_RAW_RL_Rimports;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">Data Source=DESKTOP-QNFHJOC;Initial Catalog=WM_RAW_RL;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -75,7 +75,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">WM_RAW_RL_Rimports</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">WM_RAW_RL</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -148,7 +148,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">Data Source=DESKTOP-QNFHJOC;Initial Catalog=WM_DW_Rimports;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">Data Source=DESKTOP-QNFHJOC;Initial Catalog=WM_DW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -163,7 +163,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">WM_DW_Rimports</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">WM_DW</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -233,10 +233,10 @@
                 <SSIS:Property SSIS:Name="Name">RL_WM_Item_Load</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">78</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">79</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{E147EAEF-2613-4DDC-9C89-E027B3CD5DD8}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{274B8F93-A42B-4B2C-907E-B906C8665EC3}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">SSIS Package Description</SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
@@ -296,7 +296,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\WM\RL_Data\Rimports\tbl_WM_item1.mdb</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\WM\RL_Data\tbl_WM_item1.mdb</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -368,7 +368,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\WM\RL_Data\Rimports\tbl_WM_item2.mdb</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\WM\RL_Data\tbl_WM_item2.mdb</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -394,10 +394,10 @@
                 <SSIS:Property SSIS:Name="Name">RL_WM_Sls_Sls_By_Day_Load</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">52</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">53</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{6EABAC4E-350D-4589-890E-188B023E6EA0}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{F4960F54-AD9C-4FC6-A89C-08AD5AF5F6D0}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">SSIS Package Description</SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
@@ -483,10 +483,10 @@
                 <SSIS:Property SSIS:Name="Name">RL_WM_Sls_Sls_By_Day_Load</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">61</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">62</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{AD7D3247-06AE-44D7-856F-161B9EE62BDC}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{05837325-B061-43C8-86BA-8392892BF7C6}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">SSIS Package Description</SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
@@ -546,7 +546,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\WM\RL_Data\Rimports\tbl_WM_Fcst.mdb</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\WM\RL_Data\tbl_WM_Fcst.mdb</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -572,10 +572,10 @@
                 <SSIS:Property SSIS:Name="Name">RL_WM_Sls_Sls_By_Day_Load</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">67</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">69</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{4B74F3E0-F92A-49D1-A2D3-69BAE7CA997C}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{720A1CCC-0A71-4785-9127-7E0CFEC971D2}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">SSIS Package Description</SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
@@ -661,10 +661,10 @@
                 <SSIS:Property SSIS:Name="Name">RL_WM_PO_Load</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">74</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">75</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{58C93AC0-9A84-4D44-B98B-A209C348A311}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{83FBB1B8-BF4F-4485-8BE2-C6EA0E22E7E5}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">SSIS Package Description</SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
@@ -750,10 +750,10 @@
                 <SSIS:Property SSIS:Name="Name">RL_WM_Replen_Load</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">62</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">64</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{6807DEFC-619F-45CD-85EC-45B594A17219}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{F7D7D92E-A247-4570-9428-4AA27F2A2C8A}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">SSIS Package Description</SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
@@ -839,10 +839,10 @@
                 <SSIS:Property SSIS:Name="Name">RL_WM_Stores_Load</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">66</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">68</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{AFB6CFE8-C2D4-46AF-B777-510338BB4FB3}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{E46F99F0-F38E-424E-AC2A-0CF8B3230F29}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">SSIS Package Description</SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
@@ -928,10 +928,10 @@
                 <SSIS:Property SSIS:Name="Name">RL_WM_MABD_Load</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">66</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">67</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{C5642DE5-E01B-4690-8B33-F4B18143CAAB}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{B0D059A4-29DD-4F25-8D80-D6E26B9B0EF6}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">SSIS Package Description</SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
@@ -1017,10 +1017,10 @@
                 <SSIS:Property SSIS:Name="Name">ETL_Main</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">75</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">88</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{900D3974-5E0B-46C1-879F-6778153ABCA3}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{37C52F40-5DFD-4A1A-821D-43B0F731A763}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -1034,10 +1034,10 @@
                 <SSIS:Property SSIS:Name="Name">RL_WM_Whse_Load</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">70</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">72</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{93C0233C-BBA7-4698-B99D-9A218351E5E3}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{7D62FBD2-241F-45D8-B7B8-86643FF925E7}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">SSIS Package Description</SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
@@ -1139,10 +1139,10 @@
                 <SSIS:Property SSIS:Name="Name">RL_WM_File_Unzip</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">50</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">52</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{211DD2C7-6976-4495-AD39-0A143461CD6E}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{B3BE9D62-97D9-44CC-A528-81A3784C95CC}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>

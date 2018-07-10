@@ -1,0 +1,677 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/6/2016 9:20:23 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="VINCENT-HP"
+  DTS:CreatorName="VINCENT-HP\Vincent"
+  DTS:DTSID="{27487925-D8CC-4BFB-9AAF-56C14E185E5D}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="ETL_Main"
+  DTS:PackageType="5"
+  DTS:VersionBuild="92"
+  DTS:VersionGUID="{92284F24-B5E0-4E64-AECA-47EEDBE0912E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{04EAA0B0-696D-41CF-BDF7-BA1F7702E3EE}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;20&quot;+LEFT(RIGHT( @[User::Zip_File], 12) , 8)"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="File_Download_Date">
+      <DTS:VariableValue
+        DTS:DataType="8">2016-08-08</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D5288E73-1894-4730-A91B-03604E80B25F}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Zip_File">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\WM\Raw_Data_Q3Q4\Rimports\Downloads_Auto_Rimports_16-08-08.zip</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Run for each file in the download folder"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{CDC230DC-8C59-40C0-BA87-B6C9727EFB39}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Run for each file in the download folder">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{FDD9DEFA-BD97-498A-8830-93E0A80E62B0}"
+        DTS:ObjectName="{FDD9DEFA-BD97-498A-8830-93E0A80E62B0}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[$Project::Downloaded_Zip_File_Folder]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="C:\WM\Downloads" />
+            <FEFEProperty
+              FileSpec="RL_Download_Zip_*.zip" />
+            <FEFEProperty
+              FileNameRetrievalType="0" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Run for each file in the download folder\Clean Up Import Files"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{b7c689ff-f1bb-4d6b-8b61-dec59bda47c9}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Clean Up Import Files"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>RL_WM_File_Unzip.dtsx</PackageName>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Run for each file in the download folder\Load Raw Data"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{8160b6b0-1612-4748-9d0b-d77ac17c3a82}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load Raw Data">
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Ainv_Cinv_OO_Ship_Load"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{feb121db-f6eb-41d5-a302-f1e5e321f256}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="RL_WM_Ainv_Cinv_OO_Ship_Load"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>RL_WM_Ainv_Cinv_OO_Ship_Load.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Fcst_Load"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{c3ef0e36-895d-4e10-a4c7-fd4a599708e0}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="RL_WM_Fcst_Load"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>RL_WM_Fcst_Load.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Item_Load"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{f7b5ff2a-89b0-4029-ae8a-163d27299acd}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="RL_WM_Item_Load"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>RL_WM_Item_Load.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_MABD_Load"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{0879c3d1-6163-4b4e-9ec8-b46e90b218ba}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="RL_WM_MABD_Load"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>RL_WM_MABD_Load.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_PO_Load"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{96575a09-6355-4a91-9364-e688dc1c44b3}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="RL_WM_PO_Load"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>RL_WM_PO_Load.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Replen_Load"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{17befece-7ac4-4c63-b7af-56f08acbaeb2}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="RL_WM_Replen_Load"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>RL_WM_Replen_Load.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Sls_Sls_By_Day_Load"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{759e0174-d38a-4896-9b6d-86fe05c23a29}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="RL_WM_Sls_Sls_By_Day_Load"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>RL_WM_Sls_Sls_By_Day_Load.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Stores_Load"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{23c4faea-8105-493d-bed9-6a0ac5d6de00}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="RL_WM_Stores_Load"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>RL_WM_Stores_Load.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Whse_Load"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{3099c54b-037c-4fce-8f1b-5af546b5de28}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="RL_WM_Whse_Load"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>RL_WM_Whse_Load.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{08bf7650-a03a-44ef-93a6-3b331fbf9a1a}"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Item_Load"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Ainv_Cinv_OO_Ship_Load" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 1]"
+              DTS:CreationName=""
+              DTS:DTSID="{88c75ac9-9b8c-4f12-ae7c-06d994b3630b}"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Ainv_Cinv_OO_Ship_Load"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 1"
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Fcst_Load" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 2]"
+              DTS:CreationName=""
+              DTS:DTSID="{c38533c5-9e47-4434-a8da-3fcb1e946537}"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Fcst_Load"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 2"
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_MABD_Load" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 3]"
+              DTS:CreationName=""
+              DTS:DTSID="{a19f3d3a-7aa1-4105-890b-56a2c34efb6b}"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_MABD_Load"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 3"
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_PO_Load" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 4]"
+              DTS:CreationName=""
+              DTS:DTSID="{8aa9f9df-89ba-44d3-a955-83abde6cb043}"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_PO_Load"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 4"
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Replen_Load" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 5]"
+              DTS:CreationName=""
+              DTS:DTSID="{acf635c9-eaf6-4ba9-a16b-b41d295c1f64}"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Sls_Sls_By_Day_Load"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 5"
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Stores_Load" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 6]"
+              DTS:CreationName=""
+              DTS:DTSID="{521294e2-2612-43c5-8c48-311518fa82c9}"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Stores_Load"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 6"
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Whse_Load" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 7]"
+              DTS:CreationName=""
+              DTS:DTSID="{1039c1f9-2abb-4794-97c7-2b51b3536413}"
+              DTS:From="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Replen_Load"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 7"
+              DTS:To="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Sls_Sls_By_Day_Load" />
+          </DTS:PrecedenceConstraints>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Run for each file in the download folder\Sequence Container"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{c94ac884-3cf8-4b1a-97d7-ff9938f8d546}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Sequence Container">
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Run for each file in the download folder\Sequence Container\DW_Load"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{b848c69b-8fac-4774-9023-c04b76f03332}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="DW_Load"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>RL_WM_DW_Load.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Run for each file in the download folder.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{583e063d-434e-4448-b06a-8e7fd6e3ac2a}"
+          DTS:From="Package\Run for each file in the download folder\Load Raw Data"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Run for each file in the download folder\Sequence Container" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Run for each file in the download folder.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{11c9d706-2f0d-427f-ba34-ecfc31686ffa}"
+          DTS:From="Package\Run for each file in the download folder\Clean Up Import Files"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Run for each file in the download folder\Load Raw Data" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{A70CAB14-8BAF-4057-A5C3-E79767C32570}"
+          DTS:ObjectName="{A70CAB14-8BAF-4057-A5C3-E79767C32570}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::Zip_File" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="181,42"
+          Id="Package\Run for each file in the download folder\Clean Up Import Files"
+          TopLeft="122.5,430.75" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Ainv_Cinv_OO_Ship_Load"
+          TopLeft="56.6666666666667,123.333333333333" />
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Fcst_Load"
+          TopLeft="62.6666666666667,210.333333333333" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Item_Load"
+          TopLeft="53.6666666666667,20.3333333333334" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_MABD_Load"
+          TopLeft="52.6666666666667,299.333333333333" />
+        <NodeLayout
+          Size="162,42"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_PO_Load"
+          TopLeft="65.6666666666667,397.333333333333" />
+        <NodeLayout
+          Size="181,42"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Replen_Load"
+          TopLeft="49.6666666666666,503.333333333333" />
+        <NodeLayout
+          Size="222,42"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Sls_Sls_By_Day_Load"
+          TopLeft="22.6666666666667,579.333333333333" />
+        <NodeLayout
+          Size="178,42"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Stores_Load"
+          TopLeft="37.6666666666667,647.333333333333" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Run for each file in the download folder\Load Raw Data\RL_WM_Whse_Load"
+          TopLeft="40.6666666666666,722.333333333333" />
+        <EdgeLayout
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint]"
+          TopLeft="146.666666666667,62.3333333333334">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61"
+              Start="0,0"
+              End="0,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 1]"
+          TopLeft="147.416666666667,165.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45"
+              Start="0,0"
+              End="0,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 2]"
+          TopLeft="143.916666666667,252.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 3]"
+          TopLeft="143.916666666667,341.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56.0000000000001"
+              Start="0,0"
+              End="0,48.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 4]"
+          TopLeft="143.416666666667,439.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,64"
+              Start="0,0"
+              End="0,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 5]"
+          TopLeft="130.166666666667,621.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26"
+              Start="0,0"
+              End="0,18.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 6]"
+          TopLeft="127.416666666667,689.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Run for each file in the download folder\Load Raw Data.PrecedenceConstraints[Constraint 7]"
+          TopLeft="136.916666666667,545.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34"
+              Start="0,0"
+              End="0,26.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="344,819"
+          Size="344,862"
+          Id="Package\Run for each file in the download folder\Load Raw Data"
+          TopLeft="438.5,21.75" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Run for each file in the download folder\Sequence Container\DW_Load"
+          TopLeft="70,91" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="336,327"
+          Size="336,370"
+          Id="Package\Run for each file in the download folder\Sequence Container"
+          TopLeft="1011.16666666667,266.083333333328" />
+        <EdgeLayout
+          Id="Package\Run for each file in the download folder.PrecedenceConstraints[Constraint]"
+          TopLeft="782.5,451.916666666664">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="228.66666666667,0"
+              Start="0,0"
+              End="221.16666666667,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="221.16666666667,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Run for each file in the download folder.PrecedenceConstraints[Constraint 1]"
+          TopLeft="303.5,452.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="135,0"
+              Start="0,0"
+              End="127.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="127.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="1352,938"
+          Size="1352,981"
+          Id="Package\Run for each file in the download folder"
+          TopLeft="50,524" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
